@@ -1,0 +1,573 @@
+{
+  "jobs": [
+    {
+      "id": "job-001",
+      "title": "Frontend Engineer",
+      "company": "Northstar Labs",
+      "companyInitial": "N",
+      "companyColor": "#00b4a0",
+      "postedAt": "2 days ago",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "$78,000 - $96,000",
+      "tags": ["Remote", "Full-time", "React", "TypeScript"],
+      "summary": "Own product-facing React surfaces for a fast-moving student tools platform.",
+      "description": "Northstar Labs is hiring a frontend engineer to ship polished dashboards, artifacts, and collaboration flows across its student productivity suite. The team wants someone comfortable with React, component architecture, and product iteration.",
+      "requirements": ["1+ year building React applications", "Strong CSS and component systems fluency", "Comfort with API integration and product QA", "Portfolio or shipped work that shows interface judgment"],
+      "companyInfo": {
+        "industry": "EdTech SaaS",
+        "size": "58 employees",
+        "hq": "Remote-first"
+      },
+      "applyUrl": "https://careers.northstarlabs.dev/frontend-engineer",
+      "source": "RemoteOK",
+      "relevanceScore": 96,
+      "matchReason": "Strong fit for a remote frontend profile with early-career React experience.",
+      "links": [
+        { "title": "Direct application", "url": "https://careers.northstarlabs.dev/frontend-engineer", "kind": "Apply" },
+        { "title": "Company site", "url": "https://northstarlabs.dev", "kind": "Company" }
+      ]
+    },
+    {
+      "id": "job-002",
+      "title": "Frontend Developer",
+      "company": "Orbit Commerce",
+      "companyInitial": "O",
+      "companyColor": "#8b7fd4",
+      "postedAt": "1 day ago",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "$70,000 - $88,000",
+      "tags": ["Remote", "Full-time", "Next.js", "Design Systems"],
+      "summary": "Build conversion-focused ecommerce tooling with a design-heavy product team.",
+      "description": "Orbit Commerce is looking for a frontend developer who can turn product specs into resilient, responsive interfaces. You will work closely with design and growth teams on merchant-facing workflows.",
+      "requirements": ["Experience with React or Next.js", "Good JavaScript and CSS fundamentals", "Comfort collaborating with design and PM teams", "Strong sense for polished interaction detail"],
+      "companyInfo": {
+        "industry": "Commerce Infrastructure",
+        "size": "110 employees",
+        "hq": "Austin, TX"
+      },
+      "applyUrl": "https://jobs.orbitcommerce.io/frontend-developer",
+      "source": "Adzuna",
+      "relevanceScore": 93,
+      "matchReason": "Close match for frontend candidates who want remote product work with design exposure.",
+      "links": [
+        { "title": "Direct application", "url": "https://jobs.orbitcommerce.io/frontend-developer", "kind": "Apply" },
+        { "title": "Team overview", "url": "https://orbitcommerce.io/team", "kind": "Company" }
+      ]
+    },
+    {
+      "id": "job-003",
+      "title": "UI Engineer",
+      "company": "Beacon Cloud",
+      "companyInitial": "B",
+      "companyColor": "#f59340",
+      "postedAt": "3 days ago",
+      "location": "Hybrid - Bengaluru",
+      "type": "Full-time",
+      "salary": "$18,000 - $24,000",
+      "tags": ["Hybrid", "Full-time", "React", "Accessibility"],
+      "summary": "Craft interface systems for operations teams working with cloud cost data.",
+      "description": "Beacon Cloud needs a UI engineer to improve dense data products used by finance and infrastructure teams. The role mixes interaction design sensitivity with practical frontend execution.",
+      "requirements": ["1+ year frontend experience", "Comfort with accessibility and responsive layouts", "Experience with charts, data tables, or dashboards", "Able to work from Bengaluru part of the week"],
+      "companyInfo": {
+        "industry": "Cloud FinOps",
+        "size": "76 employees",
+        "hq": "Bengaluru"
+      },
+      "applyUrl": "https://beaconcloud.io/careers/ui-engineer",
+      "source": "LinkedIn",
+      "relevanceScore": 90,
+      "matchReason": "Strong option for candidates open to hybrid work and UI-heavy dashboard products.",
+      "links": [
+        { "title": "Direct application", "url": "https://beaconcloud.io/careers/ui-engineer", "kind": "Apply" },
+        { "title": "Product overview", "url": "https://beaconcloud.io/product", "kind": "Company" }
+      ]
+    },
+    {
+      "id": "job-004",
+      "title": "Machine Learning Intern",
+      "company": "Helio AI",
+      "companyInitial": "H",
+      "companyColor": "#8b7fd4",
+      "postedAt": "Today",
+      "location": "Remote",
+      "type": "Internship",
+      "salary": "$1,200 / month",
+      "tags": ["Remote", "Internship", "Python", "ML"],
+      "summary": "Support model evaluation and lightweight fine-tuning for applied AI workflows.",
+      "description": "Helio AI is hiring a machine learning intern to support dataset preparation, model evaluation, and experiment tracking across applied LLM products. The team is open to candidates with strong Python fundamentals and no formal industry experience.",
+      "requirements": ["Solid Python basics", "Understanding of notebooks, datasets, and model evaluation", "Able to communicate experimental findings clearly", "Interest in LLM tooling or applied AI products"],
+      "companyInfo": {
+        "industry": "Applied AI",
+        "size": "34 employees",
+        "hq": "Remote-first"
+      },
+      "applyUrl": "https://helio.ai/careers/ml-intern",
+      "source": "RemoteOK",
+      "relevanceScore": 95,
+      "matchReason": "Excellent match for an ML intern profile with Python skills and limited formal experience.",
+      "links": [
+        { "title": "Direct application", "url": "https://helio.ai/careers/ml-intern", "kind": "Apply" },
+        { "title": "Research blog", "url": "https://helio.ai/blog", "kind": "Company" }
+      ]
+    },
+    {
+      "id": "job-005",
+      "title": "AI Research Engineering Intern",
+      "company": "Cinder Labs",
+      "companyInitial": "C",
+      "companyColor": "#00b4a0",
+      "postedAt": "4 days ago",
+      "location": "Hybrid - Pune",
+      "type": "Internship",
+      "salary": "$900 / month",
+      "tags": ["Hybrid", "Internship", "Python", "LLMs"],
+      "summary": "Pair with research engineers on evaluation pipelines and data tooling.",
+      "description": "Cinder Labs is expanding its applied research team and needs an intern to support prompt experiments, evaluation dashboards, and training data hygiene. This is a good role for a Python-first student who wants hands-on AI exposure.",
+      "requirements": ["Python proficiency", "Comfort with data cleaning and scripting", "Ability to read and summarize technical papers", "Open to working from Pune twice a week"],
+      "companyInfo": {
+        "industry": "Developer AI Tools",
+        "size": "41 employees",
+        "hq": "Pune"
+      },
+      "applyUrl": "https://careers.cinderlabs.ai/research-engineering-intern",
+      "source": "HN Who's Hiring",
+      "relevanceScore": 91,
+      "matchReason": "Good match for ML-leaning candidates who want research-adjacent internship work.",
+      "links": [
+        { "title": "Direct application", "url": "https://careers.cinderlabs.ai/research-engineering-intern", "kind": "Apply" },
+        { "title": "Engineering notes", "url": "https://cinderlabs.ai/engineering", "kind": "Company" }
+      ]
+    },
+    {
+      "id": "job-006",
+      "title": "Data Science Intern",
+      "company": "Verve Health",
+      "companyInitial": "V",
+      "companyColor": "#f59340",
+      "postedAt": "5 days ago",
+      "location": "Remote",
+      "type": "Internship",
+      "salary": "$1,100 / month",
+      "tags": ["Remote", "Internship", "Python", "Analytics"],
+      "summary": "Work on healthcare modeling, metrics, and experiment reporting.",
+      "description": "Verve Health is looking for a data science intern to build analysis notebooks, validate models, and support reporting for patient engagement initiatives. The team values clear reasoning and practical Python skills.",
+      "requirements": ["Python and pandas familiarity", "Basic statistics knowledge", "Able to present findings cleanly", "Interest in healthcare or social impact products"],
+      "companyInfo": {
+        "industry": "Digital Health",
+        "size": "92 employees",
+        "hq": "Boston, MA"
+      },
+      "applyUrl": "https://vervehealth.ai/jobs/data-science-intern",
+      "source": "Adzuna",
+      "relevanceScore": 88,
+      "matchReason": "Useful option for Python-first candidates exploring analytical ML-adjacent work.",
+      "links": [
+        { "title": "Direct application", "url": "https://vervehealth.ai/jobs/data-science-intern", "kind": "Apply" },
+        { "title": "About Verve Health", "url": "https://vervehealth.ai/about", "kind": "Company" }
+      ]
+    },
+    {
+      "id": "job-007",
+      "title": "Product Manager",
+      "company": "Meridian Stack",
+      "companyInitial": "M",
+      "companyColor": "#00b4a0",
+      "postedAt": "2 days ago",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "$112,000 - $138,000",
+      "tags": ["Remote", "Full-time", "Product", "B2B SaaS"],
+      "summary": "Own roadmap execution for workflow automation products serving revenue teams.",
+      "description": "Meridian Stack needs a product manager to drive discovery, prioritize roadmap decisions, and partner tightly with sales, design, and engineering across a B2B SaaS platform. The role expects prior product ownership experience.",
+      "requirements": ["3+ years in product management", "Experience with B2B SaaS workflows", "Comfort writing clear product specs", "Strong stakeholder and prioritization skills"],
+      "companyInfo": {
+        "industry": "B2B SaaS",
+        "size": "180 employees",
+        "hq": "New York, NY"
+      },
+      "applyUrl": "https://meridianstack.com/careers/product-manager",
+      "source": "LinkedIn",
+      "relevanceScore": 97,
+      "matchReason": "Top fit for a PM profile with B2B SaaS experience and a few years of ownership.",
+      "links": [
+        { "title": "Direct application", "url": "https://meridianstack.com/careers/product-manager", "kind": "Apply" },
+        { "title": "Product team overview", "url": "https://meridianstack.com/product", "kind": "Company" }
+      ]
+    },
+    {
+      "id": "job-008",
+      "title": "Senior Product Manager",
+      "company": "Atlas Billing",
+      "companyInitial": "A",
+      "companyColor": "#8b7fd4",
+      "postedAt": "1 week ago",
+      "location": "Hybrid - London",
+      "type": "Full-time",
+      "salary": "$95,000 - $122,000",
+      "tags": ["Hybrid", "Full-time", "Payments", "B2B SaaS"],
+      "summary": "Lead platform bets around invoicing, usage pricing, and account growth.",
+      "description": "Atlas Billing is expanding its product team and wants a product manager who can move comfortably between merchant pain points, product analytics, and engineering execution. Billing and growth product experience are helpful.",
+      "requirements": ["3+ years product management experience", "Experience with platform or B2B workflows", "Ability to run discovery and define metrics", "Comfort with hybrid collaboration in London"],
+      "companyInfo": {
+        "industry": "Payments Infrastructure",
+        "size": "230 employees",
+        "hq": "London"
+      },
+      "applyUrl": "https://jobs.atlasbilling.com/senior-product-manager",
+      "source": "HN Who's Hiring",
+      "relevanceScore": 90,
+      "matchReason": "Good fit for B2B SaaS PM candidates willing to work hybrid in a payments domain.",
+      "links": [
+        { "title": "Direct application", "url": "https://jobs.atlasbilling.com/senior-product-manager", "kind": "Apply" },
+        { "title": "Platform blog", "url": "https://atlasbilling.com/blog", "kind": "Company" }
+      ]
+    },
+    {
+      "id": "job-009",
+      "title": "Product Operations Manager",
+      "company": "Threadline",
+      "companyInitial": "T",
+      "companyColor": "#f59340",
+      "postedAt": "3 days ago",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "$98,000 - $118,000",
+      "tags": ["Remote", "Full-time", "Operations", "B2B SaaS"],
+      "summary": "Shape planning rituals, product analytics loops, and cross-functional execution cadences.",
+      "description": "Threadline is hiring a product operations manager to build the systems behind efficient product delivery. You will work across PM, design, and GTM teams to tighten planning, metrics review, and roadmap communication.",
+      "requirements": ["3+ years in product ops, PM, or strategy", "Strong operational rigor", "Comfort with product metrics and planning systems", "Excellent cross-functional communication"],
+      "companyInfo": {
+        "industry": "Revenue Operations SaaS",
+        "size": "145 employees",
+        "hq": "Chicago, IL"
+      },
+      "applyUrl": "https://careers.threadline.io/product-operations-manager",
+      "source": "Adzuna",
+      "relevanceScore": 89,
+      "matchReason": "Strong adjacent fit for PM candidates who also like systems and execution design.",
+      "links": [
+        { "title": "Direct application", "url": "https://careers.threadline.io/product-operations-manager", "kind": "Apply" },
+        { "title": "Company site", "url": "https://threadline.io", "kind": "Company" }
+      ]
+    },
+    {
+      "id": "job-010",
+      "title": "Associate Product Manager",
+      "company": "Pilot Metrics",
+      "companyInitial": "P",
+      "companyColor": "#00b4a0",
+      "postedAt": "6 days ago",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "$84,000 - $101,000",
+      "tags": ["Remote", "Full-time", "Analytics", "B2B SaaS"],
+      "summary": "Partner with senior PMs on analytics tooling used by SaaS finance teams.",
+      "description": "Pilot Metrics is hiring an associate product manager to support feature definition, user research, and KPI tracking. This role works well for candidates with some product or operations experience who want broader ownership.",
+      "requirements": ["2+ years in product, analytics, or operations roles", "Good writing and prioritization skills", "Comfort with dashboards and stakeholder interviews", "Interest in B2B SaaS customer workflows"],
+      "companyInfo": {
+        "industry": "Finance Analytics SaaS",
+        "size": "88 employees",
+        "hq": "Remote-first"
+      },
+      "applyUrl": "https://pilotmetrics.com/careers/associate-product-manager",
+      "source": "RemoteOK",
+      "relevanceScore": 87,
+      "matchReason": "Useful PM-adjacent path for candidates with less direct PM title experience.",
+      "links": [
+        { "title": "Direct application", "url": "https://pilotmetrics.com/careers/associate-product-manager", "kind": "Apply" },
+        { "title": "Customers", "url": "https://pilotmetrics.com/customers", "kind": "Company" }
+      ]
+    },
+    {
+      "id": "job-011",
+      "title": "Backend Engineer",
+      "company": "Granite API",
+      "companyInitial": "G",
+      "companyColor": "#8b7fd4",
+      "postedAt": "Today",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "$92,000 - $115,000",
+      "tags": ["Remote", "Full-time", "Node.js", "APIs"],
+      "summary": "Design backend services and integrations for developer-facing products.",
+      "description": "Granite API is hiring a backend engineer to build stable services, partner integrations, and data pipelines. The team wants someone comfortable with JavaScript or TypeScript on the server and a product-minded attitude.",
+      "requirements": ["Experience with Node.js or TypeScript backends", "SQL or document database familiarity", "Comfort with API design and observability", "Able to work in a distributed team"],
+      "companyInfo": {
+        "industry": "Developer Infrastructure",
+        "size": "63 employees",
+        "hq": "Remote-first"
+      },
+      "applyUrl": "https://graniteapi.dev/careers/backend-engineer",
+      "source": "GitHub Jobs Archive",
+      "relevanceScore": 86,
+      "matchReason": "Useful match for candidates who pivot from frontend into broader full-stack work.",
+      "links": [
+        { "title": "Direct application", "url": "https://graniteapi.dev/careers/backend-engineer", "kind": "Apply" },
+        { "title": "Developer docs", "url": "https://graniteapi.dev/docs", "kind": "Company" }
+      ]
+    },
+    {
+      "id": "job-012",
+      "title": "Full Stack Engineer",
+      "company": "Quarry OS",
+      "companyInitial": "Q",
+      "companyColor": "#f59340",
+      "postedAt": "2 days ago",
+      "location": "Hybrid - Hyderabad",
+      "type": "Full-time",
+      "salary": "$20,000 - $28,000",
+      "tags": ["Hybrid", "Full-time", "React", "Node.js"],
+      "summary": "Build user-facing product surfaces and the services behind them.",
+      "description": "Quarry OS is looking for a full stack engineer who can move between React interfaces and Node.js services. The role supports internal workflow products and customer-facing reporting features.",
+      "requirements": ["Experience with React and Node.js", "Good debugging habits", "Comfort with REST APIs and databases", "Able to work from Hyderabad on a hybrid cadence"],
+      "companyInfo": {
+        "industry": "Operations Software",
+        "size": "120 employees",
+        "hq": "Hyderabad"
+      },
+      "applyUrl": "https://quarryos.com/careers/full-stack-engineer",
+      "source": "LinkedIn",
+      "relevanceScore": 84,
+      "matchReason": "Strong adjacent role if the candidate wants broader product ownership beyond frontend.",
+      "links": [
+        { "title": "Direct application", "url": "https://quarryos.com/careers/full-stack-engineer", "kind": "Apply" },
+        { "title": "Product overview", "url": "https://quarryos.com/product", "kind": "Company" }
+      ]
+    },
+    {
+      "id": "job-013",
+      "title": "Product Analyst",
+      "company": "Kite Ledger",
+      "companyInitial": "K",
+      "companyColor": "#00b4a0",
+      "postedAt": "4 days ago",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "$76,000 - $92,000",
+      "tags": ["Remote", "Full-time", "Analytics", "SQL"],
+      "summary": "Drive product insights and experiment analysis for a B2B SaaS reporting product.",
+      "description": "Kite Ledger is hiring a product analyst to shape experimentation, dashboarding, and customer behavior analysis across its reporting suite. The role is strong for analytical PM-adjacent candidates.",
+      "requirements": ["SQL and dashboard fluency", "Experience with product or business analysis", "Clear communication with stakeholders", "Comfort turning findings into action"],
+      "companyInfo": {
+        "industry": "B2B Reporting SaaS",
+        "size": "70 employees",
+        "hq": "Remote-first"
+      },
+      "applyUrl": "https://kiteledger.com/jobs/product-analyst",
+      "source": "Adzuna",
+      "relevanceScore": 85,
+      "matchReason": "Good fit for candidates whose PM background is heavy on analytics and product decisions.",
+      "links": [
+        { "title": "Direct application", "url": "https://kiteledger.com/jobs/product-analyst", "kind": "Apply" },
+        { "title": "Insights blog", "url": "https://kiteledger.com/blog", "kind": "Company" }
+      ]
+    },
+    {
+      "id": "job-014",
+      "title": "Technical Program Manager",
+      "company": "Signal Foundry",
+      "companyInitial": "S",
+      "companyColor": "#8b7fd4",
+      "postedAt": "1 week ago",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "$108,000 - $129,000",
+      "tags": ["Remote", "Full-time", "Program Management", "SaaS"],
+      "summary": "Run delivery coordination across platform, analytics, and customer systems teams.",
+      "description": "Signal Foundry is hiring a technical program manager to strengthen planning and execution across several product squads. This is useful for product candidates who have deep cross-functional delivery experience.",
+      "requirements": ["3+ years leading software delivery programs", "Strong communication and dependency management", "Comfort with SaaS engineering environments", "Able to define clear delivery operating rhythms"],
+      "companyInfo": {
+        "industry": "Revenue Software",
+        "size": "210 employees",
+        "hq": "Toronto"
+      },
+      "applyUrl": "https://careers.signalfoundry.com/technical-program-manager",
+      "source": "HN Who's Hiring",
+      "relevanceScore": 82,
+      "matchReason": "Relevant adjacent path for PM candidates with strong execution leadership.",
+      "links": [
+        { "title": "Direct application", "url": "https://careers.signalfoundry.com/technical-program-manager", "kind": "Apply" },
+        { "title": "Engineering organization", "url": "https://signalfoundry.com/engineering", "kind": "Company" }
+      ]
+    },
+    {
+      "id": "job-015",
+      "title": "Junior Frontend Engineer",
+      "company": "Papertrail Studio",
+      "companyInitial": "P",
+      "companyColor": "#f59340",
+      "postedAt": "Today",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "$62,000 - $74,000",
+      "tags": ["Remote", "Full-time", "React", "CSS"],
+      "summary": "Help a small product team refine user-facing collaboration interfaces.",
+      "description": "Papertrail Studio is hiring a junior frontend engineer to help improve collaboration views, templates, and in-app editing. The team values shipping discipline, visual polish, and clear ownership.",
+      "requirements": ["Up to 2 years frontend experience", "Strong React and CSS fundamentals", "Comfort with product QA and iterative releases", "Portfolio that shows attention to detail"],
+      "companyInfo": {
+        "industry": "Creative Collaboration SaaS",
+        "size": "46 employees",
+        "hq": "Remote-first"
+      },
+      "applyUrl": "https://papertrail.studio/careers/junior-frontend-engineer",
+      "source": "RemoteOK",
+      "relevanceScore": 92,
+      "matchReason": "Excellent fit for early-career frontend candidates with around one year of experience.",
+      "links": [
+        { "title": "Direct application", "url": "https://papertrail.studio/careers/junior-frontend-engineer", "kind": "Apply" },
+        { "title": "Design system showcase", "url": "https://papertrail.studio/design-system", "kind": "Company" }
+      ]
+    },
+    {
+      "id": "job-016",
+      "title": "Software Engineering Intern",
+      "company": "Summit Robotics",
+      "companyInitial": "S",
+      "companyColor": "#00b4a0",
+      "postedAt": "3 days ago",
+      "location": "On-site - Chennai",
+      "type": "Internship",
+      "salary": "$850 / month",
+      "tags": ["On-site", "Internship", "Python", "C++"],
+      "summary": "Support tooling and internal dashboards for robotics workflows.",
+      "description": "Summit Robotics is hiring a software engineering intern to work on internal applications, telemetry tools, and experiment support for its robotics team. The team is open to candidates with strong fundamentals and high learning velocity.",
+      "requirements": ["Good programming basics", "Python or C++ familiarity", "Able to learn quickly in a hardware-adjacent environment", "Open to on-site work in Chennai"],
+      "companyInfo": {
+        "industry": "Robotics",
+        "size": "95 employees",
+        "hq": "Chennai"
+      },
+      "applyUrl": "https://summitrobotics.ai/jobs/software-engineering-intern",
+      "source": "GitHub Jobs Archive",
+      "relevanceScore": 79,
+      "matchReason": "Good stretch opportunity for candidates open to on-site work and broader engineering exposure.",
+      "links": [
+        { "title": "Direct application", "url": "https://summitrobotics.ai/jobs/software-engineering-intern", "kind": "Apply" },
+        { "title": "Lab overview", "url": "https://summitrobotics.ai/labs", "kind": "Company" }
+      ]
+    },
+    {
+      "id": "job-017",
+      "title": "Growth Product Manager",
+      "company": "Ribbon CRM",
+      "companyInitial": "R",
+      "companyColor": "#8b7fd4",
+      "postedAt": "2 days ago",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "$116,000 - $142,000",
+      "tags": ["Remote", "Full-time", "Growth", "B2B SaaS"],
+      "summary": "Lead activation, monetization, and expansion experiments for a CRM platform.",
+      "description": "Ribbon CRM is looking for a growth product manager who can shape acquisition-to-expansion loops across its sales software. This role requires strong metric ownership, experimentation judgment, and customer empathy.",
+      "requirements": ["3+ years in product or growth roles", "Experimentation and analytics experience", "Comfort with B2B customer journeys", "Strong prioritization and communication skills"],
+      "companyInfo": {
+        "industry": "CRM SaaS",
+        "size": "260 employees",
+        "hq": "Remote-first"
+      },
+      "applyUrl": "https://ribboncrm.com/careers/growth-product-manager",
+      "source": "LinkedIn",
+      "relevanceScore": 94,
+      "matchReason": "Very strong match for a PM profile with B2B SaaS and growth-oriented experience.",
+      "links": [
+        { "title": "Direct application", "url": "https://ribboncrm.com/careers/growth-product-manager", "kind": "Apply" },
+        { "title": "Customer stories", "url": "https://ribboncrm.com/customers", "kind": "Company" }
+      ]
+    },
+    {
+      "id": "job-018",
+      "title": "Associate AI Engineer",
+      "company": "Nova Reasoning",
+      "companyInitial": "N",
+      "companyColor": "#f59340",
+      "postedAt": "5 days ago",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "$88,000 - $105,000",
+      "tags": ["Remote", "Full-time", "Python", "LLMs"],
+      "summary": "Ship evaluation and orchestration tooling for LLM-powered enterprise workflows.",
+      "description": "Nova Reasoning is hiring an associate AI engineer to help productionize evaluation loops, prompt systems, and workflow automation around LLM products. The team wants strong Python skills and product-minded execution.",
+      "requirements": ["Python experience", "Comfort with APIs and experimentation", "Interest in LLM products", "Clear written communication"],
+      "companyInfo": {
+        "industry": "Enterprise AI",
+        "size": "54 employees",
+        "hq": "Remote-first"
+      },
+      "applyUrl": "https://novareasoning.ai/jobs/associate-ai-engineer",
+      "source": "RemoteOK",
+      "relevanceScore": 87,
+      "matchReason": "Strong option for ML-oriented candidates aiming for applied AI roles beyond internships.",
+      "links": [
+        { "title": "Direct application", "url": "https://novareasoning.ai/jobs/associate-ai-engineer", "kind": "Apply" },
+        { "title": "Engineering blog", "url": "https://novareasoning.ai/blog", "kind": "Company" }
+      ]
+    },
+    {
+      "id": "job-019",
+      "title": "Platform Product Manager",
+      "company": "Forge Admin",
+      "companyInitial": "F",
+      "companyColor": "#00b4a0",
+      "postedAt": "4 days ago",
+      "location": "Hybrid - San Francisco",
+      "type": "Full-time",
+      "salary": "$128,000 - $156,000",
+      "tags": ["Hybrid", "Full-time", "Platform", "B2B SaaS"],
+      "summary": "Own internal platform capabilities that power admin and workflow teams.",
+      "description": "Forge Admin wants a platform product manager to partner with infrastructure and product teams on internal tooling, APIs, and operational leverage. This role suits PMs who like enabling other teams at scale.",
+      "requirements": ["3+ years in PM roles", "Experience with APIs, platforms, or internal tools", "Strong analytical thinking", "Able to work hybrid in San Francisco"],
+      "companyInfo": {
+        "industry": "Workflow SaaS",
+        "size": "320 employees",
+        "hq": "San Francisco, CA"
+      },
+      "applyUrl": "https://forgeadmin.com/careers/platform-product-manager",
+      "source": "Adzuna",
+      "relevanceScore": 83,
+      "matchReason": "Good fit for experienced PM candidates who want platform ownership in SaaS.",
+      "links": [
+        { "title": "Direct application", "url": "https://forgeadmin.com/careers/platform-product-manager", "kind": "Apply" },
+        { "title": "Platform overview", "url": "https://forgeadmin.com/platform", "kind": "Company" }
+      ]
+    },
+    {
+      "id": "job-020",
+      "title": "Founding Product Manager",
+      "company": "Delta Harbor",
+      "companyInitial": "D",
+      "companyColor": "#8b7fd4",
+      "postedAt": "Today",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "$120,000 - $145,000 + equity",
+      "tags": ["Remote", "Full-time", "Founding Team", "B2B SaaS"],
+      "summary": "Join an early-stage B2B SaaS team and define the operating rhythm for product.",
+      "description": "Delta Harbor is hiring a founding product manager to work directly with the founders on discovery, roadmap decisions, and customer feedback loops. The role expects strong ownership and comfort with ambiguity.",
+      "requirements": ["3+ years in product, founder, or startup operator roles", "Strong customer communication", "Comfort in early-stage environments", "Ability to turn loose inputs into clear priorities"],
+      "companyInfo": {
+        "industry": "B2B Workflow SaaS",
+        "size": "14 employees",
+        "hq": "Remote-first"
+      },
+      "applyUrl": "https://deltaharbor.com/jobs/founding-product-manager",
+      "source": "HN Who's Hiring",
+      "relevanceScore": 91,
+      "matchReason": "Excellent fit for candidates aiming at startup-style product ownership in SaaS.",
+      "links": [
+        { "title": "Direct application", "url": "https://deltaharbor.com/jobs/founding-product-manager", "kind": "Apply" },
+        { "title": "Founder letter", "url": "https://deltaharbor.com/founders", "kind": "Company" }
+      ]
+    }
+  ],
+  "total": 20,
+  "sources": ["RemoteOK", "HN Who's Hiring", "GitHub Jobs Archive", "Adzuna"],
+  "query": {
+    "role": "Frontend Developer",
+    "experience": "1 year experience",
+    "type": "Remote",
+    "stack": "React, TypeScript",
+    "location": "Remote"
+  }
+}

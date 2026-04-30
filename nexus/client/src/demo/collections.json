@@ -1,0 +1,64 @@
+{
+  "collections": [
+    {
+      "id": "saved-1",
+      "type": "roadmap",
+      "title": "Full Stack Developer",
+      "summary": "5 phases, 22 nodes, and a complete full stack roadmap.",
+      "tags": ["roadmap", "full-stack"],
+      "savedAt": "2026-04-28T09:00:00.000Z",
+      "payload": {
+        "title": "Full Stack Developer",
+        "phases": [
+          { "id": "phase-1", "color": "#00b4a0", "nodes": [{ "id": "n1" }, { "id": "n2" }, { "id": "n3" }, { "id": "n4" }] },
+          { "id": "phase-2", "color": "#8b7fd4", "nodes": [{ "id": "n5" }, { "id": "n6" }, { "id": "n7" }, { "id": "n8" }] },
+          { "id": "phase-3", "color": "#00b4a0", "nodes": [{ "id": "n9" }, { "id": "n10" }, { "id": "n11" }, { "id": "n12" }] },
+          { "id": "phase-4", "color": "#f59340", "nodes": [{ "id": "n13" }, { "id": "n14" }, { "id": "n15" }, { "id": "n16" }] },
+          { "id": "phase-5", "color": "#00b4a0", "nodes": [{ "id": "n17" }, { "id": "n18" }, { "id": "n19" }, { "id": "n20" }] }
+        ]
+      }
+    },
+    {
+      "id": "saved-2",
+      "type": "jobs",
+      "title": "Northstar Labs shortlist",
+      "summary": "Matched internship leads for analytics and operations.",
+      "tags": ["jobs", "internship"],
+      "savedAt": "2026-04-29T14:00:00.000Z",
+      "payload": {
+        "id": "job-001",
+        "title": "Frontend Engineer",
+        "company": "Northstar Labs",
+        "companyInitial": "N",
+        "companyColor": "#00b4a0",
+        "postedAt": "2 days ago",
+        "location": "Remote",
+        "type": "Full-time",
+        "salary": "$78,000 - $96,000",
+        "tags": ["Remote", "Full-time", "React"]
+      }
+    },
+    {
+      "id": "saved-3",
+      "type": "notes",
+      "title": "Consensus primer",
+      "summary": "Athena study pack for distributed systems.",
+      "tags": ["notes", "systems"],
+      "savedAt": "2026-04-30T08:30:00.000Z",
+      "payload": {
+        "title": "React Hooks Notes",
+        "content": "## Core Concept\n\nHooks let function components use state and side effects.\n\n## Key Hooks\n\n- useState\n- useEffect\n- useMemo",
+        "comments": [
+          { "id": "c1" },
+          { "id": "c2" },
+          { "id": "c3" }
+        ]
+      }
+    }
+  ],
+  "meta": {
+    "mode": "demo",
+    "provider": "demo",
+    "agent": "Collections"
+  }
+}

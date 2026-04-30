@@ -1,0 +1,11 @@
+nexus/client/node_modules/
+nexus/client/dist/
+nexus/server/node_modules/
+nexus/server/.cache/
+nexus/server/uploads/
+nexus/node_modules/
+nexus/.env
+nexus/package-lock.json
+nexus/client/package-lock.json
+nexus/server/package-lock.json
+

@@ -1,0 +1,41 @@
+{
+  "note": {
+    "title": "React Hooks Notes",
+    "content": "## Core Concept\n\n**Hooks** let function components use state, side effects, memoization, and shared logic without converting to classes. The main shift is that stateful behavior now lives close to the UI that uses it.\n\n## Key Hooks\n\n- **useState** stores local component state.\n- **useEffect** synchronizes the component with things outside React, such as APIs, timers, and subscriptions.\n- **useMemo** caches expensive derived values.\n- **useCallback** preserves function identity between renders.\n- **useRef** stores mutable values without triggering rerenders.\n\n## Dependency Arrays\n\nThe **dependency array controls when an effect reruns**. If you leave a dependency out, React can keep using stale values from an earlier render. If you include unstable values carelessly, the effect may rerun too often.\n\n> Treat dependency arrays as a correctness tool first and a performance tool second.\n\n## Custom Hooks\n\n**Custom hooks let you extract stateful logic into reusable functions**. They work best when a piece of UI behavior appears in multiple places and should stay consistent.\n\n```js\nfunction useWindowWidth() {\n  const [width, setWidth] = useState(window.innerWidth);\n\n  useEffect(() => {\n    const onResize = () => setWidth(window.innerWidth);\n    window.addEventListener('resize', onResize);\n    return () => window.removeEventListener('resize', onResize);\n  }, []);\n\n  return width;\n}\n```\n\n## Common Pitfalls\n\n- **Stale closures happen when callbacks capture outdated values**.\n- Running data fetching effects without cleanup can create race conditions.\n- Overusing `useMemo` and `useCallback` can make code harder to reason about.\n- Putting business logic directly inside components can make tests and reuse painful.\n\n## Practical Example\n\nA search page might use `useState` for query text, `useEffect` for debounced fetching, and `useMemo` for filtered result summaries. The best hook choices come from the job the component needs to do, not from trying to use every hook available.\n\n## Quick Reference Summary\n\n- Use hooks to keep component logic explicit and composable.\n- Keep dependency arrays honest.\n- Reach for custom hooks when logic repeats.\n- Watch for stale closures, cleanup bugs, and unnecessary memoization.\n"
+  },
+  "comments": [
+    {
+      "id": "comment-demo-1",
+      "author": "Maya",
+      "username": "maya",
+      "highlightedText": "dependency array controls when an effect reruns",
+      "commentText": "This is the part most people get wrong in interviews. Worth pairing with one bad example and one correct example.",
+      "position": 360,
+      "timestamp": "2025-04-18T14:14:00.000Z",
+      "color": "#fef9c3",
+      "source": "Source: personal highlight — 18 Apr 2025"
+    },
+    {
+      "id": "comment-demo-2",
+      "author": "Alex",
+      "username": "alex",
+      "highlightedText": "Custom hooks let you extract stateful logic into reusable functions",
+      "commentText": "Good place to add a sentence about naming conventions and why custom hooks must start with `use`.",
+      "position": 660,
+      "timestamp": "2025-04-18T15:02:00.000Z",
+      "color": "#fef9c3",
+      "source": "Source: personal highlight — 18 Apr 2025"
+    },
+    {
+      "id": "comment-demo-3",
+      "author": "Rohan",
+      "username": "rohan",
+      "highlightedText": "Stale closures happen when callbacks capture outdated values",
+      "commentText": "This should probably link back to dependency arrays because students often see them as separate problems.",
+      "position": 980,
+      "timestamp": "2025-04-18T16:27:00.000Z",
+      "color": "#fef9c3",
+      "source": "Source: personal highlight — 18 Apr 2025"
+    }
+  ]
+}

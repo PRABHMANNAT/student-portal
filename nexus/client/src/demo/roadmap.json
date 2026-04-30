@@ -1,0 +1,369 @@
+{
+  "roadmap": {
+    "title": "Full Stack Developer",
+    "description": "A professional full stack developer pathway that moves from web foundations into frontend systems, backend engineering, deployment, and a strong hiring portfolio.",
+    "phases": [
+      {
+        "id": "phase-1",
+        "label": "Foundation",
+        "duration": "0-3 months",
+        "color": "#00b4a0",
+        "nodes": [
+          {
+            "id": "html-css",
+            "label": "HTML & CSS",
+            "type": "core",
+            "resources": [
+              { "title": "MDN Web Docs", "url": "https://developer.mozilla.org/en-US/docs/Learn/HTML" },
+              { "title": "freeCodeCamp Responsive Web Design", "url": "https://www.freecodecamp.org/learn/2022/responsive-web-design/" }
+            ],
+            "description": "Foundation of all web development, including layout, semantic structure, and accessible styling.",
+            "estimatedHours": 40
+          },
+          {
+            "id": "javascript",
+            "label": "JavaScript",
+            "type": "core",
+            "resources": [
+              { "title": "MDN JavaScript Guide", "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide" },
+              { "title": "javascript.info", "url": "https://javascript.info/" }
+            ],
+            "description": "Core programming language for browser interactions, application logic, and modern web tooling.",
+            "estimatedHours": 70
+          },
+          {
+            "id": "git-github",
+            "label": "Git & GitHub",
+            "type": "core",
+            "resources": [
+              { "title": "GitHub Skills", "url": "https://skills.github.com/" },
+              { "title": "Atlassian Git Tutorials", "url": "https://www.atlassian.com/git/tutorials" }
+            ],
+            "description": "Version control, branching, pull requests, and collaboration habits used across engineering teams.",
+            "estimatedHours": 20
+          },
+          {
+            "id": "web-basics",
+            "label": "Web Basics",
+            "type": "core",
+            "resources": [
+              { "title": "MDN HTTP Overview", "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview" },
+              { "title": "roadmap.sh Internet", "url": "https://roadmap.sh/internet" }
+            ],
+            "description": "HTTP, browsers, DNS, caching, and request-response flow for web applications.",
+            "estimatedHours": 18
+          }
+        ]
+      },
+      {
+        "id": "phase-2",
+        "label": "Frontend Systems",
+        "duration": "3-6 months",
+        "color": "#00b4a0",
+        "nodes": [
+          {
+            "id": "react",
+            "label": "React",
+            "type": "core",
+            "resources": [
+              { "title": "React Learn", "url": "https://react.dev/learn" },
+              { "title": "Scrimba Learn React", "url": "https://scrimba.com/learn/learnreact" }
+            ],
+            "description": "Component architecture, state, effects, and composition for modern frontend applications.",
+            "estimatedHours": 60
+          },
+          {
+            "id": "typescript",
+            "label": "TypeScript",
+            "type": "core",
+            "resources": [
+              { "title": "TypeScript Handbook", "url": "https://www.typescriptlang.org/docs/handbook/intro.html" },
+              { "title": "Total TypeScript Essentials", "url": "https://www.totaltypescript.com/tutorials/beginners-typescript" }
+            ],
+            "description": "Static typing, safer refactors, and better editor tooling for production web apps.",
+            "estimatedHours": 35
+          },
+          {
+            "id": "ui-accessibility",
+            "label": "Accessibility",
+            "type": "core",
+            "resources": [
+              { "title": "MDN Accessibility", "url": "https://developer.mozilla.org/en-US/docs/Learn/Accessibility" },
+              { "title": "WAI Tutorials", "url": "https://www.w3.org/WAI/tutorials/" }
+            ],
+            "description": "Inclusive interfaces, semantic markup, keyboard flow, and screen-reader-friendly patterns.",
+            "estimatedHours": 20
+          },
+          {
+            "id": "frontend-testing",
+            "label": "Frontend Testing",
+            "type": "optional",
+            "resources": [
+              { "title": "Testing Library React", "url": "https://testing-library.com/docs/react-testing-library/intro/" },
+              { "title": "Playwright Docs", "url": "https://playwright.dev/docs/intro" }
+            ],
+            "description": "Component and end-to-end testing for stable releases and safer UI changes.",
+            "estimatedHours": 28
+          }
+        ]
+      },
+      {
+        "id": "phase-3",
+        "label": "Backend & Data",
+        "duration": "6-9 months",
+        "color": "#00b4a0",
+        "nodes": [
+          {
+            "id": "node-express",
+            "label": "Node & Express",
+            "type": "core",
+            "resources": [
+              { "title": "Node.js Learn", "url": "https://nodejs.org/en/learn/getting-started/introduction-to-nodejs" },
+              { "title": "Express Guide", "url": "https://expressjs.com/en/guide/routing.html" }
+            ],
+            "description": "Server-side JavaScript, routing, middleware, and API design for backend services.",
+            "estimatedHours": 45
+          },
+          {
+            "id": "rest-api-design",
+            "label": "REST API Design",
+            "type": "core",
+            "resources": [
+              { "title": "Microsoft REST API Guidelines", "url": "https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md" },
+              { "title": "Postman API Fundamentals", "url": "https://academy.postman.com/path/api-foundations" }
+            ],
+            "description": "Resource modeling, HTTP verbs, response contracts, and predictable API behavior.",
+            "estimatedHours": 20
+          },
+          {
+            "id": "mongodb",
+            "label": "MongoDB",
+            "type": "core",
+            "resources": [
+              { "title": "MongoDB University Basics", "url": "https://learn.mongodb.com/learning-paths/mongodb-basics" },
+              { "title": "Mongoose Docs", "url": "https://mongoosejs.com/docs/" }
+            ],
+            "description": "Document modeling, indexing, query patterns, and integrating MongoDB with Node services.",
+            "estimatedHours": 30
+          },
+          {
+            "id": "sql",
+            "label": "SQL",
+            "type": "core",
+            "resources": [
+              { "title": "PostgreSQL Tutorial", "url": "https://www.postgresqltutorial.com/" },
+              { "title": "Mode SQL Tutorial", "url": "https://mode.com/sql-tutorial/" }
+            ],
+            "description": "Relational thinking, joins, aggregations, and query literacy that transfers across stacks.",
+            "estimatedHours": 30
+          },
+          {
+            "id": "auth-security",
+            "label": "Auth & Security",
+            "type": "advanced",
+            "resources": [
+              { "title": "OWASP Top 10", "url": "https://owasp.org/www-project-top-ten/" },
+              { "title": "JWT Introduction", "url": "https://jwt.io/introduction" }
+            ],
+            "description": "Session models, token handling, password storage, and secure-by-default backend practices.",
+            "estimatedHours": 24
+          }
+        ]
+      },
+      {
+        "id": "phase-4",
+        "label": "Productization",
+        "duration": "9-12 months",
+        "color": "#00b4a0",
+        "nodes": [
+          {
+            "id": "nextjs",
+            "label": "Next.js",
+            "type": "core",
+            "resources": [
+              { "title": "Next.js Learn", "url": "https://nextjs.org/learn" },
+              { "title": "App Router Docs", "url": "https://nextjs.org/docs/app" }
+            ],
+            "description": "Full stack React patterns for routing, server rendering, and production app structure.",
+            "estimatedHours": 32
+          },
+          {
+            "id": "deployment",
+            "label": "Deployment",
+            "type": "core",
+            "resources": [
+              { "title": "Vercel Docs", "url": "https://vercel.com/docs" },
+              { "title": "Render Docs", "url": "https://render.com/docs" }
+            ],
+            "description": "Shipping applications, setting environments, observing releases, and handling rollbacks.",
+            "estimatedHours": 18
+          },
+          {
+            "id": "docker",
+            "label": "Docker Basics",
+            "type": "optional",
+            "resources": [
+              { "title": "Docker Getting Started", "url": "https://docs.docker.com/get-started/" },
+              { "title": "Docker Curriculum", "url": "https://docker-curriculum.com/" }
+            ],
+            "description": "Containers, reproducible local environments, and packaging apps for reliable delivery.",
+            "estimatedHours": 22
+          },
+          {
+            "id": "performance",
+            "label": "Performance",
+            "type": "advanced",
+            "resources": [
+              { "title": "web.dev Performance", "url": "https://web.dev/learn/performance/" },
+              { "title": "MDN Performance", "url": "https://developer.mozilla.org/en-US/docs/Web/Performance" }
+            ],
+            "description": "Shipping faster experiences through bundle discipline, caching, rendering strategy, and profiling.",
+            "estimatedHours": 24
+          }
+        ]
+      },
+      {
+        "id": "phase-5",
+        "label": "Career Launch",
+        "duration": "12-15 months",
+        "color": "#f59340",
+        "nodes": [
+          {
+            "id": "capstone",
+            "label": "Capstone Product",
+            "type": "core",
+            "resources": [
+              { "title": "Vercel Examples", "url": "https://vercel.com/templates" },
+              { "title": "Frontend Mentor", "url": "https://www.frontendmentor.io/" }
+            ],
+            "description": "One polished full stack product that proves product thinking, engineering range, and execution depth.",
+            "estimatedHours": 80
+          },
+          {
+            "id": "system-design",
+            "label": "System Design Basics",
+            "type": "advanced",
+            "resources": [
+              { "title": "System Design Primer", "url": "https://github.com/donnemartin/system-design-primer" },
+              { "title": "ByteByteGo YouTube", "url": "https://www.youtube.com/@ByteByteGo" }
+            ],
+            "description": "Reasoning about scale, tradeoffs, caching, queues, and data flow in interview-ready language.",
+            "estimatedHours": 26
+          },
+          {
+            "id": "dsa",
+            "label": "DSA for Interviews",
+            "type": "core",
+            "resources": [
+              { "title": "NeetCode Roadmap", "url": "https://neetcode.io/roadmap" },
+              { "title": "LeetCode Explore", "url": "https://leetcode.com/explore/" }
+            ],
+            "description": "Targeted problem-solving reps for interview loops without over-indexing on pure algorithm grind.",
+            "estimatedHours": 50
+          },
+          {
+            "id": "open-source",
+            "label": "Open Source & Networking",
+            "type": "optional",
+            "resources": [
+              { "title": "First Contributions", "url": "https://firstcontributions.github.io/" },
+              { "title": "GitHub Explore", "url": "https://github.com/explore" }
+            ],
+            "description": "Visible work, contributor habits, and stronger signal through community participation.",
+            "estimatedHours": 18
+          },
+          {
+            "id": "resume-portfolio",
+            "label": "Resume & Portfolio",
+            "type": "core",
+            "resources": [
+              { "title": "Google Tech Dev Guide Resume Tips", "url": "https://techdevguide.withgoogle.com/resources/resume-writing/" },
+              { "title": "roadmap.sh Portfolio Projects", "url": "https://roadmap.sh/projects" }
+            ],
+            "description": "Translate your projects into recruiter-readable proof with strong writeups and visible links.",
+            "estimatedHours": 16
+          }
+        ]
+      }
+    ],
+    "connections": [
+      { "from": "html-css", "to": "javascript", "type": "required" },
+      { "from": "javascript", "to": "git-github", "type": "required" },
+      { "from": "web-basics", "to": "react", "type": "required" },
+      { "from": "javascript", "to": "react", "type": "required" },
+      { "from": "react", "to": "typescript", "type": "required" },
+      { "from": "react", "to": "ui-accessibility", "type": "required" },
+      { "from": "react", "to": "frontend-testing", "type": "recommended" },
+      { "from": "typescript", "to": "node-express", "type": "required" },
+      { "from": "git-github", "to": "node-express", "type": "required" },
+      { "from": "node-express", "to": "rest-api-design", "type": "required" },
+      { "from": "node-express", "to": "mongodb", "type": "required" },
+      { "from": "node-express", "to": "sql", "type": "recommended" },
+      { "from": "rest-api-design", "to": "auth-security", "type": "required" },
+      { "from": "mongodb", "to": "nextjs", "type": "required" },
+      { "from": "sql", "to": "nextjs", "type": "recommended" },
+      { "from": "auth-security", "to": "deployment", "type": "required" },
+      { "from": "nextjs", "to": "deployment", "type": "required" },
+      { "from": "deployment", "to": "docker", "type": "recommended" },
+      { "from": "deployment", "to": "performance", "type": "required" },
+      { "from": "nextjs", "to": "capstone", "type": "required" },
+      { "from": "performance", "to": "capstone", "type": "required" },
+      { "from": "auth-security", "to": "system-design", "type": "recommended" },
+      { "from": "sql", "to": "system-design", "type": "recommended" },
+      { "from": "capstone", "to": "resume-portfolio", "type": "required" },
+      { "from": "dsa", "to": "resume-portfolio", "type": "required" },
+      { "from": "open-source", "to": "resume-portfolio", "type": "recommended" }
+    ]
+  },
+  "sources": [
+    "https://developer.mozilla.org/en-US/docs/Learn/HTML",
+    "https://www.freecodecamp.org/learn/2022/responsive-web-design/",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide",
+    "https://javascript.info/",
+    "https://skills.github.com/",
+    "https://www.atlassian.com/git/tutorials",
+    "https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview",
+    "https://roadmap.sh/internet",
+    "https://react.dev/learn",
+    "https://scrimba.com/learn/learnreact",
+    "https://www.typescriptlang.org/docs/handbook/intro.html",
+    "https://www.totaltypescript.com/tutorials/beginners-typescript",
+    "https://developer.mozilla.org/en-US/docs/Learn/Accessibility",
+    "https://www.w3.org/WAI/tutorials/",
+    "https://testing-library.com/docs/react-testing-library/intro/",
+    "https://playwright.dev/docs/intro",
+    "https://nodejs.org/en/learn/getting-started/introduction-to-nodejs",
+    "https://expressjs.com/en/guide/routing.html",
+    "https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md",
+    "https://academy.postman.com/path/api-foundations",
+    "https://learn.mongodb.com/learning-paths/mongodb-basics",
+    "https://mongoosejs.com/docs/",
+    "https://www.postgresqltutorial.com/",
+    "https://mode.com/sql-tutorial/",
+    "https://owasp.org/www-project-top-ten/",
+    "https://jwt.io/introduction",
+    "https://nextjs.org/learn",
+    "https://nextjs.org/docs/app",
+    "https://vercel.com/docs",
+    "https://render.com/docs",
+    "https://docs.docker.com/get-started/",
+    "https://docker-curriculum.com/",
+    "https://web.dev/learn/performance/",
+    "https://developer.mozilla.org/en-US/docs/Web/Performance",
+    "https://vercel.com/templates",
+    "https://www.frontendmentor.io/",
+    "https://github.com/donnemartin/system-design-primer",
+    "https://www.youtube.com/@ByteByteGo",
+    "https://neetcode.io/roadmap",
+    "https://leetcode.com/explore/",
+    "https://firstcontributions.github.io/",
+    "https://github.com/explore",
+    "https://techdevguide.withgoogle.com/resources/resume-writing/",
+    "https://roadmap.sh/projects"
+  ],
+  "meta": {
+    "mode": "demo",
+    "provider": "demo",
+    "agent": "Aristotle"
+  }
+}

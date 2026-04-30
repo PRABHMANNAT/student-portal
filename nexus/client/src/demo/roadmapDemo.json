@@ -1,0 +1,133 @@
+{
+  "title": "Full Stack Developer",
+  "description": "A complete path from zero to production-ready full stack developer",
+  "phases": [
+    {
+      "id": "phase-1",
+      "label": "Foundation",
+      "duration": "0-3 months",
+      "color": "#00b4a0",
+      "nodes": [
+        {
+          "id": "html",
+          "label": "HTML5",
+          "type": "core",
+          "description": "Structure of the web. Learn semantic HTML, forms, accessibility.",
+          "estimatedHours": 20,
+          "resources": [
+            { "title": "MDN HTML Guide", "url": "https://developer.mozilla.org/en-US/docs/Learn/HTML" },
+            { "title": "freeCodeCamp HTML", "url": "https://www.freecodecamp.org/learn/2022/responsive-web-design/" },
+            { "title": "HTML Crash Course", "url": "https://www.youtube.com/watch?v=qz0aGYrrlhU" }
+          ]
+        },
+        {
+          "id": "css",
+          "label": "CSS3",
+          "type": "core",
+          "description": "Styling and layout. Flexbox, Grid, animations, responsive design.",
+          "estimatedHours": 30,
+          "resources": [
+            { "title": "CSS-Tricks", "url": "https://css-tricks.com" },
+            { "title": "Flexbox Froggy", "url": "https://flexboxfroggy.com" },
+            { "title": "Grid Garden", "url": "https://cssgridgarden.com" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-2",
+      "label": "JavaScript",
+      "duration": "3-6 months",
+      "color": "#f59340",
+      "nodes": [
+        {
+          "id": "js-core",
+          "label": "JavaScript",
+          "type": "core",
+          "description": "Core JS: variables, functions, async/await, DOM manipulation, ES6+.",
+          "estimatedHours": 80,
+          "resources": [
+            { "title": "javascript.info", "url": "https://javascript.info" },
+            { "title": "Eloquent JavaScript", "url": "https://eloquentjavascript.net" },
+            { "title": "JS30 by Wes Bos", "url": "https://javascript30.com" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-3",
+      "label": "Frontend Framework",
+      "duration": "6-9 months",
+      "color": "#8b7fd4",
+      "nodes": [
+        {
+          "id": "react",
+          "label": "React",
+          "type": "core",
+          "description": "Component-based UI. Hooks, state management, React Router, Context.",
+          "estimatedHours": 60,
+          "resources": [
+            { "title": "React Official Docs", "url": "https://react.dev" },
+            { "title": "Full React Course", "url": "https://www.youtube.com/watch?v=bMknfKXIFA8" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-4",
+      "label": "Backend",
+      "duration": "9-12 months",
+      "color": "#00b4a0",
+      "nodes": [
+        {
+          "id": "nodejs",
+          "label": "Node.js",
+          "type": "core",
+          "description": "Server-side JS. Express, REST APIs, middleware, authentication.",
+          "estimatedHours": 60,
+          "resources": [
+            { "title": "Node.js Docs", "url": "https://nodejs.org/docs" },
+            { "title": "The Odin Project", "url": "https://www.theodinproject.com" }
+          ]
+        },
+        {
+          "id": "mongodb",
+          "label": "MongoDB",
+          "type": "core",
+          "description": "NoSQL database. Mongoose, aggregation pipelines, indexing.",
+          "estimatedHours": 30,
+          "resources": [
+            { "title": "MongoDB University", "url": "https://university.mongodb.com" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-5",
+      "label": "Production",
+      "duration": "12+ months",
+      "color": "#e05555",
+      "nodes": [
+        {
+          "id": "deploy",
+          "label": "Deployment",
+          "type": "core",
+          "description": "CI/CD, Docker basics, cloud deploy (Vercel, Railway, AWS EC2).",
+          "estimatedHours": 20,
+          "resources": [
+            { "title": "Vercel Docs", "url": "https://vercel.com/docs" },
+            { "title": "Docker for Beginners", "url": "https://docker-curriculum.com" }
+          ]
+        }
+      ]
+    }
+  ],
+  "connections": [
+    { "from": "html", "to": "css", "type": "required" },
+    { "from": "css", "to": "js-core", "type": "required" },
+    { "from": "js-core", "to": "react", "type": "required" },
+    { "from": "react", "to": "nodejs", "type": "required" },
+    { "from": "nodejs", "to": "mongodb", "type": "required" },
+    { "from": "mongodb", "to": "deploy", "type": "required" }
+  ]
+}
