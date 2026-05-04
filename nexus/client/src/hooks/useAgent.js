@@ -8,7 +8,7 @@ import { jobsApi, notesApi, roadmapApi } from '../api';
 const agentConfig = {
   roadmap: {
     key: 'roadmap',
-    initial: roadmapDemo.roadmap,
+    initial: null,
     initialMeta: roadmapDemo.meta,
     request: roadmapApi.generate
   },
@@ -70,4 +70,3 @@ export function useAgent(agent) {
     setMeta
   };
 }
-

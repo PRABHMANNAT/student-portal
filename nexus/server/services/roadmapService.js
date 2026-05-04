@@ -5,8 +5,6 @@ import { fileURLToPath } from 'url';
 
 import Collection from '../models/Collection.js';
 import Roadmap from '../models/Roadmap.js';
-import { generateWithAnthropic } from './anthropicService.js';
-import { generateWithGroq } from './groqService.js';
 import { addMemoryCollection, listMemoryCollections } from './memoryStore.js';
 import { generateWithOpenAI } from './openaiService.js';
 
@@ -17,36 +15,114 @@ const demoRoadmap = JSON.parse(
   readFileSync(path.resolve(__dirname, '../demo/roadmapDemo.json'), 'utf8')
 );
 
-const systemPrompt = `You are Aristotle, a career roadmap expert.
-Generate a detailed career roadmap in STRICT JSON format.
-Schema: {
-  title,
-  description,
-  phases: [{
-    id,
-    label,
-    duration,
-    color,
-    nodes: [{
-      id,
-      label,
-      type,
-      resources: [{ title, url }],
-      description,
-      estimatedHours
-    }]
-  }],
-  connections: [{ from, to, type }]
-}
-For resources, include real URLs from MDN, freeCodeCamp, roadmap.sh, YouTube, Coursera, React docs, Node docs, and other reputable learning sources.
-Use colors: teal #00b4a0 for core nodes, purple #8b7fd4 for optional, orange #f59340 for advanced.
-Respond ONLY with valid JSON, no markdown.`;
+const systemPrompt = `You are Aristotle, generating a personalized career roadmap.
+Output a LOGICAL TREE STRUCTURE only - no positions, no coordinates. The renderer handles all layout automatically.
 
-const providerChain = [
-  { name: 'claude-sonnet-4-20250514', execute: generateWithAnthropic },
-  { name: 'llama3-70b-8192', execute: generateWithGroq },
-  { name: 'gpt-4o', execute: generateWithOpenAI }
-];
+OUTPUT SCHEMA:
+{
+  "title": "string (e.g. 'AI/ML Engineer @ OpenAI')",
+  "subtitle": "string (one-liner)",
+  "totalHours": number,
+  "duration": "string (e.g. '12 months')",
+  "totalNodes": number,
+  "personalizationRationale": [
+    "string (3-5 bullet points explaining personalization)"
+  ],
+  "sections": [
+    {
+      "id": "kebab-case",
+      "title": "Foundations",
+      "spine": [
+        {
+          "id": "kebab-case-unique",
+          "title": "Topic Title",
+          "style": "primary" | "alternative" | "optional",
+          "estimatedHours": number,
+          "difficulty": "Beginner" | "Intermediate" | "Advanced",
+          "personalizedNote": "string | null (max 80 chars)",
+          "branches": [
+            {
+              "id": "kebab-case-unique",
+              "title": "Sub-topic",
+              "side": "left" | "right",
+              "style": "alternative" | "optional",
+              "estimatedHours": number,
+              "difficulty": "Beginner" | "Intermediate" | "Advanced",
+              "personalizedNote": "string | null"
+            }
+          ]
+        }
+      ],
+      "checkpoint": {
+        "id": "cp-kebab-case",
+        "title": "Checkpoint - Foundations Complete"
+      }
+    }
+  ],
+  "content": {
+    "node-id": {
+      "description": "2-3 sentences",
+      "freeResources": [
+        { "type": "article|video|feed|podcast", "title": "...", "url": "...", "source": "..." }
+      ],
+      "premiumResources": [
+        { "type": "course|book", "title": "...", "url": "...", "source": "...", "discount": "20% Off" | null }
+      ]
+    }
+  },
+  "checkpoints": [
+    { "id": "cp-kebab-case", "title": "Foundations", "totalTopics": 12, "completedCount": 0 }
+  ],
+  "firstUncompletedNode": "first-spine-node-id"
+}
+
+LAYOUT RULES:
+- Each section has 5-10 spine nodes.
+- Each spine node has 2-6 branches.
+- Do not create nested branches; every branch must be a direct child of exactly one spine node.
+- Branches are split between "left" and "right" sides.
+- Try to balance: if a node has 6 branches, put 3 left and 3 right.
+- Generate 5-7 sections total.
+- Generate 60-100 total spine and branch nodes minimum.
+
+BRANCH UNIQUENESS REQUIREMENT:
+Every branch must be a SPECIFIC sub-topic of its parent spine node.
+NEVER use generic patterns like:
+- "Ship a {topic} mini project"
+- "Add {topic} to portfolio"
+- "MDN Web Docs"
+- "freeCodeCamp Learn"
+- "web.dev Learn"
+Resources belong in the "content" object as freeResources/premiumResources. Branches must be ACTUAL learning sub-topics.
+Correct examples for spine="Programming Fundamentals": Variables & Data Types, Control Flow, Functions & Scope, Error Handling, Async Programming.
+Correct examples for spine="API Design": REST Principles, Authentication & JWTs, Rate Limiting, Versioning, OpenAPI / Swagger.
+Correct examples for spine="Databases": SQL Fundamentals, Normalization, Indexing & Performance, Transactions & ACID, NoSQL Basics.
+If a spine node would have fewer than 3 unique sub-topics, drop it and merge with another. Do NOT pad with generic project, portfolio, or resource nodes.
+
+PERSONALIZATION:
+- Use the student profile to mark known skills as "optional" style.
+- Add personalizedNote on nodes where context matters.
+- Reference target companies, weaknesses, and timeline.
+- Adjust depth based on yearsOfExperience.
+- personalizationRationale must be based on the profile diff versus this roadmap: known skills skipped, weaknesses deepened, target companies emphasized, location/visa constraints, and timeline tradeoffs.
+
+PERSONALIZED NOTE RULES:
+- Maximum 30% of nodes should have a personalizedNote.
+- Each note must be SPECIFIC to that topic, not generic.
+- Notes serve ONE of these purposes ONLY: skip signal, focus signal, company-specific signal, or geographic signal.
+- NEVER use the same note text on multiple nodes.
+- NEVER write generic notes like "Important for X interviews".
+- If a node has nothing genuinely personalized to say, set personalizedNote: null.
+Good examples: "Skip basics - your React intern role at Local Startup covers this."; "Atlassian's Forge platform requires solid TypeScript depth."; "You flagged DSA as a weakness - extra reps recommended."; "Canva uses Vue heavily; consider this over React if targeting them."
+Bad examples: "Important for Atlassian interviews and portfolio review."; "Important for {company} interviews."; "Critical for your career."
+
+CONTENT:
+- Every node ID in spine/branches MUST have an entry in "content".
+- 4-6 free resources per node using real URLs.
+- 1-2 premium resources per node.
+- Real sources: official docs, MDN, web.dev, freeCodeCamp, Coursera, Andrej Karpathy, 3Blue1Brown, and reputable project docs.
+
+Respond ONLY with valid JSON, no markdown.`;
 
 function extractJson(raw) {
   const input = `${raw || ''}`.trim();
@@ -80,7 +156,7 @@ function extractJson(raw) {
 }
 
 function normalizeResource(resource, fallbackIndex) {
-  const fallbackUrl = `https://roadmap.sh`;
+  const fallbackUrl = `https://developer.mozilla.org/`;
 
   return {
     title: resource?.title || `Resource ${fallbackIndex + 1}`,
@@ -129,7 +205,166 @@ function normalizePhase(phase, phaseIndex) {
   };
 }
 
+function isGenericBranchTitle(title = '') {
+  const text = title.toLowerCase().trim();
+  return (
+    /^ship (a |an )?.*mini project$/.test(text) ||
+    /^add .* to (a )?.*portfolio$/.test(text) ||
+    /^(mdn web docs|freecodecamp learn|web\.dev learn)$/.test(text)
+  );
+}
+
+function dedupePersonalizedNotes(roadmap) {
+  const seenNotes = new Set();
+  const notedNodes = [];
+
+  const processNode = (node) => {
+    if (!node?.personalizedNote) return;
+
+    const note = node.personalizedNote.trim();
+    const noteKey = note.toLowerCase();
+    const genericNote = /important for .*interviews?|portfolio review|critical for your career/i.test(note);
+
+    if (!note || genericNote || seenNotes.has(noteKey)) {
+      node.personalizedNote = null;
+      return;
+    }
+
+    node.personalizedNote = note;
+    seenNotes.add(noteKey);
+    notedNodes.push(node);
+  };
+
+  (roadmap.sections || []).forEach((section) => {
+    (section.spine || []).forEach((spine) => {
+      spine.branches = (spine.branches || []).filter((branch) => !isGenericBranchTitle(branch.title));
+      processNode(spine);
+      spine.branches.forEach(processNode);
+    });
+  });
+
+  const totalNodes = (roadmap.sections || []).reduce(
+    (sum, section) =>
+      sum +
+      (section.spine || []).reduce((nodeSum, spine) => nodeSum + 1 + (spine.branches || []).length, 0),
+    0
+  );
+  const maxNotes = Math.floor(totalNodes * 0.3);
+
+  notedNodes.slice(maxNotes).forEach((node) => {
+    node.personalizedNote = null;
+  });
+
+  return roadmap;
+}
+
 function normalizeRoadmap(data) {
+  if (Array.isArray(data?.sections)) {
+    const sections = data.sections
+      .filter((section) => section?.id && section?.title)
+      .map((section, sectionIndex) => ({
+        id: section.id || `section-${sectionIndex + 1}`,
+        title: section.title || `Section ${sectionIndex + 1}`,
+        spine: Array.isArray(section.spine)
+          ? section.spine
+              .filter((node) => node?.id && node?.title)
+              .map((node, nodeIndex) => ({
+                id: node.id || `${section.id || `section-${sectionIndex + 1}`}-topic-${nodeIndex + 1}`,
+                title: node.title,
+                style: node.style === 'optional' || node.style === 'alternative' ? node.style : 'primary',
+                estimatedHours: Number(node.estimatedHours || node.hours || 0) || null,
+                difficulty: node.difficulty || null,
+                personalizedNote: node.personalizedNote || null,
+                branches: Array.isArray(node.branches)
+                  ? node.branches
+                      .filter((branch) => branch?.id && branch?.title)
+                      .filter((branch) => !isGenericBranchTitle(branch.title))
+                      .map((branch, branchIndex) => ({
+                        id: branch.id || `${node.id || `topic-${nodeIndex + 1}`}-branch-${branchIndex + 1}`,
+                        title: branch.title,
+                        side: branch.side === 'left' ? 'left' : 'right',
+                        style: branch.style === 'optional' ? 'optional' : 'alternative',
+                        estimatedHours: Number(branch.estimatedHours || branch.hours || 0) || null,
+                        difficulty: branch.difficulty || null,
+                        personalizedNote: branch.personalizedNote || null
+                      }))
+                  : []
+              }))
+          : [],
+        checkpoint: section.checkpoint?.id && section.checkpoint?.title
+          ? {
+              id: section.checkpoint.id,
+              title: section.checkpoint.title
+            }
+          : null
+      }));
+
+    const totalNodes = sections.reduce(
+      (sum, section) =>
+        sum +
+        section.spine.length +
+        section.spine.reduce((branchSum, node) => branchSum + node.branches.length, 0) +
+        (section.checkpoint ? 1 : 0),
+      0
+    );
+
+    return dedupePersonalizedNotes({
+      id: data.id || 'generated-roadmap',
+      title: data.title || demoRoadmap.title,
+      subtitle: data.subtitle || data.description || demoRoadmap.description,
+      totalNodes: Number(data.totalNodes || totalNodes),
+      duration: data.duration || 'Self paced',
+      totalHours: Number(data.totalHours || totalNodes * 6),
+      personalizationRationale: Array.isArray(data.personalizationRationale)
+        ? data.personalizationRationale
+        : [],
+      checkpoints: Array.isArray(data.checkpoints) ? data.checkpoints : [],
+      firstUncompletedNode: data.firstUncompletedNode || sections[0]?.spine?.[0]?.id || null,
+      sections,
+      content: data.content || {}
+    });
+  }
+
+  if (Array.isArray(data?.nodes) && Array.isArray(data?.edges)) {
+    const nodes = data.nodes
+      .filter((node) => node?.id && node?.title)
+      .map((node, index) => ({
+        id: node.id,
+        type: node.type || 'topic',
+        title: node.title,
+        x: Number(node.x ?? 620),
+        y: Number(node.y ?? 100 + index * 120),
+        width: Number(node.width || (node.type === 'subtopic' ? 200 : 240)),
+        height: Number(node.height || (node.type === 'subtopic' ? 38 : 49)),
+        style: node.style || (node.type === 'subtopic' ? 'alternative' : 'primary'),
+        personalizedNote: node.personalizedNote || null
+      }));
+    const nodeIds = new Set(nodes.map((node) => node.id));
+
+    return {
+      id: data.id || 'generated-roadmap',
+      title: data.title || demoRoadmap.title,
+      subtitle: data.subtitle || data.description || demoRoadmap.description,
+      totalNodes: Number(data.totalNodes || nodes.filter((node) => node.type !== 'label').length),
+      duration: data.duration || 'Self paced',
+      totalHours: Number(data.totalHours || nodes.length * 6),
+      nodes,
+      edges: Array.isArray(data.edges)
+        ? data.edges
+            .filter((edge) => nodeIds.has(edge?.source) && nodeIds.has(edge?.target))
+            .map((edge, index) => ({
+              id: edge.id || `e${index + 1}`,
+              source: edge.source,
+              target: edge.target,
+              type: edge.type === 'dashed' ? 'dashed' : 'solid',
+              sourceHandle: edge.sourceHandle || 'bottom',
+              targetHandle: edge.targetHandle || 'top'
+            }))
+        : [],
+      content: data.content || {}
+    };
+  }
+
   return {
     title: data?.title || demoRoadmap.title,
     description: data?.description || demoRoadmap.description,
@@ -147,6 +382,18 @@ function normalizeRoadmap(data) {
 }
 
 function getSourcesFromRoadmap(roadmap) {
+  if (roadmap.content) {
+    return Array.from(
+      new Set(
+        Object.values(roadmap.content).flatMap((item) => [
+          ...(item.freeResources || []),
+          ...(item.premiumResources || []),
+          ...(item.aiTutor || [])
+        ].map((resource) => resource.url).filter((url) => url && url !== 'generated'))
+      )
+    );
+  }
+
   return Array.from(
     new Set(
       roadmap.phases.flatMap((phase) =>
@@ -157,6 +404,21 @@ function getSourcesFromRoadmap(roadmap) {
 }
 
 function buildCollectionSummary(roadmap) {
+  if (Array.isArray(roadmap.nodes)) {
+    return `${roadmap.nodes.filter((node) => node.type !== 'label').length} nodes, ${roadmap.edges?.length || 0} edges`;
+  }
+
+  if (Array.isArray(roadmap.sections)) {
+    return `${roadmap.sections.length} sections, ${roadmap.totalNodes || roadmap.sections.reduce(
+      (sum, section) =>
+        sum +
+        (section.spine?.length || 0) +
+        (section.spine || []).reduce((branchSum, node) => branchSum + (node.branches?.length || 0), 0) +
+        (section.checkpoint ? 1 : 0),
+      0
+    )} nodes`;
+  }
+
   return `${roadmap.phases.length} phases, ${roadmap.phases.reduce(
     (sum, phase) => sum + phase.nodes.length,
     0
@@ -165,68 +427,60 @@ function buildCollectionSummary(roadmap) {
 
 export async function generateRoadmapData({
   query = 'Full Stack Developer path',
-  userId = 'guest'
+  userId = 'guest',
+  profile = {}
 } = {}) {
-  const fallbackChain = [];
+  try {
+    const raw = await generateWithOpenAI({
+      systemPrompt,
+      userPrompt: `STUDENT PROFILE:
+${JSON.stringify(profile, null, 2)}
 
-  for (const provider of providerChain) {
-    try {
-      const raw = await provider.execute({
-        systemPrompt,
-        userPrompt: query
+GOAL / REQUEST:
+${query}
+
+Generate the personalized roadmap now. Return JSON only.`
+    });
+
+    const roadmap = normalizeRoadmap(extractJson(raw));
+    const sources = getSourcesFromRoadmap(roadmap);
+
+    if (mongoose.connection.readyState === 1) {
+      await Roadmap.create({
+        userId,
+        title: roadmap.title,
+        query,
+        data: roadmap,
+        source: 'openai',
+        tags: ['roadmap', roadmap.title.toLowerCase()]
       });
+    }
 
-      const roadmap = normalizeRoadmap(extractJson(raw));
-      const sources = getSourcesFromRoadmap(roadmap);
-
-      if (mongoose.connection.readyState === 1) {
-        await Roadmap.create({
-          userId,
-          title: roadmap.title,
-          query,
-          data: roadmap,
-          source:
-            provider.name === 'claude-sonnet-4-20250514'
-              ? 'claude'
-              : provider.name === 'llama3-70b-8192'
-                ? 'groq'
-                : 'openai',
-          tags: ['roadmap', roadmap.title.toLowerCase()]
-        });
+    return {
+      roadmap,
+      sources,
+      meta: {
+        mode: 'live',
+        provider: 'openai-gpt-4o-mini',
+        agent: 'Aristotle',
+        timestamp: new Date().toISOString()
       }
+    };
+  } catch (error) {
+    const roadmap = normalizeRoadmap(demoRoadmap);
 
-      return {
-        roadmap,
-        sources,
-        meta: {
-          mode: 'live',
-          provider: provider.name,
-          agent: 'Aristotle',
-          fallbackChain,
-          timestamp: new Date().toISOString()
-        }
-      };
-    } catch (error) {
-      fallbackChain.push({
-        provider: provider.name,
-        reason: error.message
-      });
-    }
+    return {
+      roadmap,
+      sources: getSourcesFromRoadmap(roadmap),
+      meta: {
+        mode: 'demo',
+        provider: 'demo',
+        agent: 'Aristotle',
+        error: error.message,
+        timestamp: new Date().toISOString()
+      }
+    };
   }
-
-  const roadmap = normalizeRoadmap(demoRoadmap);
-
-  return {
-    roadmap,
-    sources: getSourcesFromRoadmap(roadmap),
-    meta: {
-      mode: 'demo',
-      provider: 'demo',
-      agent: 'Aristotle',
-      fallbackChain,
-      timestamp: new Date().toISOString()
-    }
-  };
 }
 
 export async function saveRoadmapCollection({ roadmap, userId = 'guest' }) {

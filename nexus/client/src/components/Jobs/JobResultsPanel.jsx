@@ -2,6 +2,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowUpRight, Compass, ExternalLink } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 
+import CompanyLogo from '../CompanyLogo';
+
 const FILTERS = [
   { key: 'all', label: 'All' },
   { key: 'remote', label: 'Remote' },
@@ -24,6 +26,46 @@ function formatQueryPills(query = {}) {
   return [query.role, query.experience || query.level, query.type, query.location, query.stack]
     .flatMap((value) => (Array.isArray(value) ? value : [value]))
     .filter(Boolean);
+}
+
+function formatSalaryValue(value) {
+  if (value === null || value === undefined || value === '') {
+    return '';
+  }
+
+  if (typeof value === 'number') {
+    return `$${Math.round(value).toLocaleString()}`;
+  }
+
+  const stringValue = String(value).trim();
+  if (!stringValue || stringValue.toLowerCase() === 'undefined') {
+    return '';
+  }
+
+  return stringValue.startsWith('$') ? stringValue : `$${stringValue}`;
+}
+
+function formatJobSalary(job = {}) {
+  const salaryText = String(job.salary || '').trim();
+
+  if (salaryText && !salaryText.includes('undefined')) {
+    return salaryText;
+  }
+
+  const salaryMin = job.salaryMin ?? job.salary_min ?? job.minSalary;
+  const salaryMax = job.salaryMax ?? job.salary_max ?? job.maxSalary;
+  const minText = formatSalaryValue(salaryMin);
+  const maxText = formatSalaryValue(salaryMax);
+
+  if (!minText && !maxText) {
+    return 'Salary not disclosed';
+  }
+
+  if (minText && !maxText) {
+    return `${minText}+`;
+  }
+
+  return `${minText} - ${maxText}`;
 }
 
 export function JobsLoadingPanel() {
@@ -153,9 +195,7 @@ export default function JobResultsPanel({
             >
               <div className="job-card-top">
                 <div className="job-company-block">
-                  <div className="job-company-logo" style={{ background: job.companyColor || '#1a1a1a' }}>
-                    {job.companyInitial || job.company?.slice(0, 1) || 'C'}
-                  </div>
+                  <CompanyLogo company={job.company} domain={job.companyDomain} url={job.applyUrl} links={job.links} />
                   <div className="job-company-meta">
                     <strong>{job.company}</strong>
                     <span className="job-source-line">{job.location}</span>
@@ -175,7 +215,7 @@ export default function JobResultsPanel({
               </div>
 
               <p className="job-card-copy">{job.matchReason || job.summary}</p>
-              <p className="job-card-salary">{job.salary}</p>
+              <p className="job-card-salary">{formatJobSalary(job)}</p>
 
               <div className="job-card-bottom">
                 <span className="job-apply-button">
@@ -201,12 +241,21 @@ export default function JobResultsPanel({
               layoutId={`job-card-${selectedJob.id}`}
             >
               <div className="job-detail-top">
-                <div>
-                  <span className="roadmap-resource-eyebrow">{selectedJob.company}</span>
-                  <h3>{selectedJob.title}</h3>
-                  <p className="job-detail-subtitle">
-                    {selectedJob.location} • {selectedJob.type}
-                  </p>
+                <div className="job-detail-brand">
+                  <CompanyLogo
+                    company={selectedJob.company}
+                    domain={selectedJob.companyDomain}
+                    url={selectedJob.applyUrl}
+                    links={selectedJob.links}
+                    size="lg"
+                  />
+                  <div>
+                    <span className="roadmap-resource-eyebrow">{selectedJob.company}</span>
+                    <h3>{selectedJob.title}</h3>
+                    <p className="job-detail-subtitle">
+                      {selectedJob.location} • {selectedJob.type}
+                    </p>
+                  </div>
                 </div>
 
                 <div className="job-detail-match">

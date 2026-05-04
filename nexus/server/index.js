@@ -4,7 +4,6 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { createServer } from 'http';
 import roadmapRouter from './routes/roadmap.js';
 import jobsRouter from './routes/jobs.js';
 import notesRouter from './routes/notes.js';
@@ -16,9 +15,9 @@ const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const app = express();
-const server = createServer(app);
+const PORT = process.env.PORT || 3001;
 
-app.use(cors({ origin: 'http://localhost:5173' }));
+app.use(cors({ origin: true }));
 app.use(express.json({ limit: '2mb' }));
 
 app.use('/api/roadmap', roadmapRouter);
@@ -30,13 +29,21 @@ app.use('/api/auth', authRouter);
 app.get('/api/health', (_req, res) =>
   res.json({
     status: 'ok',
-    demo: !process.env.ANTHROPIC_API_KEY
+    demo: !process.env.OPENAI_API_KEY && !process.env.VITE_OPENAI_API_KEY
   })
 );
 
-mongoose
-  .connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/nexus')
-  .then(() => console.log('MongoDB connected'))
-  .catch(() => console.log('MongoDB unavailable - demo mode active'));
+if (process.env.MONGODB_URI) {
+  mongoose
+    .connect(process.env.MONGODB_URI)
+    .then(() => console.log('MongoDB connected'))
+    .catch(() => console.log('MongoDB unavailable - demo mode active'));
+} else {
+  console.log('MongoDB not configured - memory mode active');
+}
 
-server.listen(3001, () => console.log('NEXUS server on :3001'));
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => console.log(`NEXUS server on :${PORT}`));
+}
+
+export default app;

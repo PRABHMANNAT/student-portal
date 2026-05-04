@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import '@fontsource/jetbrains-mono';
 
 import App from './App';
 import { AppProvider } from './context/AppContext';
 import { ChatProvider } from './context/ChatContext';
+import { ProfileProvider } from './context/ProfileContext';
 import './styles/tokens.css';
 import './styles/global.css';
 import './styles/app.css';
@@ -13,9 +15,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <AppProvider>
-        <ChatProvider>
-          <App />
-        </ChatProvider>
+        <ProfileProvider>
+          <ChatProvider>
+            <App />
+          </ChatProvider>
+        </ProfileProvider>
       </AppProvider>
     </BrowserRouter>
   </React.StrictMode>

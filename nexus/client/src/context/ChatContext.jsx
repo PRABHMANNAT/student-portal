@@ -1,15 +1,9 @@
-import { createContext, useContext, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useMemo, useState } from 'react';
 
 const ChatContext = createContext(null);
 
 const welcomeMessages = {
-  roadmap: [
-    {
-      id: 'roadmap-welcome',
-      role: 'assistant',
-      text: 'Aristotle builds execution-heavy career roadmaps. Share a role, timeline, or skill gap.'
-    }
-  ],
+  roadmap: [],
   jobs: [
     {
       id: 'jobs-welcome',
@@ -36,33 +30,43 @@ const welcomeMessages = {
 export function ChatProvider({ children }) {
   const [messagesByAgent, setMessagesByAgent] = useState(welcomeMessages);
 
-  const pushMessage = (agent, message) => {
+  const pushMessage = useCallback((agent, message) => {
+    const id = `${agent}-${Date.now()}-${Math.random().toString(16).slice(2)}`;
     setMessagesByAgent((current) => ({
       ...current,
       [agent]: [
         ...(current[agent] || []),
         {
-          id: `${agent}-${Date.now()}-${Math.random().toString(16).slice(2)}`,
+          id,
           ...message
         }
       ]
     }));
-  };
+    return id;
+  }, []);
 
-  const resetMessages = (agent) => {
+  const updateMessage = useCallback((agent, id, patch) => {
+    setMessagesByAgent((current) => ({
+      ...current,
+      [agent]: (current[agent] || []).map((message) => (message.id === id ? { ...message, ...patch } : message))
+    }));
+  }, []);
+
+  const resetMessages = useCallback((agent) => {
     setMessagesByAgent((current) => ({
       ...current,
       [agent]: welcomeMessages[agent] || []
     }));
-  };
+  }, []);
 
   const value = useMemo(
     () => ({
       messagesByAgent,
       pushMessage,
+      updateMessage,
       resetMessages
     }),
-    [messagesByAgent]
+    [messagesByAgent, pushMessage, resetMessages, updateMessage]
   );
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;

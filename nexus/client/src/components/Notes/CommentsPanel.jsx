@@ -2,6 +2,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
 import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 
+import UserAvatar from '../UserAvatar';
+
 function formatTimestamp(value) {
   const date = new Date(value);
   return date.toLocaleString('en-US', {
@@ -11,10 +13,6 @@ function formatTimestamp(value) {
     month: 'short',
     year: 'numeric'
   });
-}
-
-function avatarUrl(username) {
-  return `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(username || 'user')}`;
 }
 
 export default function CommentsPanel({
@@ -92,9 +90,10 @@ export default function CommentsPanel({
                   transition={{ duration: 0.22 }}
                 >
                   <div className="notes-comment-top">
-                    <img
-                      src={avatarUrl(comment.username || comment.author)}
-                      alt={comment.author}
+                    <UserAvatar
+                      seed={comment.username || comment.author}
+                      name={comment.author}
+                      size={40}
                       className="notes-comment-avatar"
                     />
                     <div>
@@ -128,9 +127,10 @@ export default function CommentsPanel({
           onSubmitDraft();
         }}
       >
-        <img
-          src={avatarUrl(currentUser?.name || 'student')}
-          alt={currentUser?.name || 'Current user'}
+        <UserAvatar
+          seed={currentUser?.username || currentUser?.name || 'student'}
+          name={currentUser?.name || 'Current user'}
+          size={40}
           className="notes-comment-avatar"
         />
         <div className="notes-comment-inputwrap">

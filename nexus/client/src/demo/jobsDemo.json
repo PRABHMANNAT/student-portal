@@ -116,8 +116,8 @@
   {
     "id": "job-007",
     "title": "Frontend Engineer",
-    "company": "Anthropic",
-    "companyLogo": "A",
+    "company": "OpenAI",
+    "companyLogo": "O",
     "companyColor": "#d97706",
     "location": "Remote",
     "type": "Full-time",
@@ -128,7 +128,7 @@
     "sourceUrl": "https://remoteok.com",
     "description": "Build human-centered product interfaces for safe and useful AI systems.",
     "requirements": ["React", "TypeScript", "Product engineering", "API integration"],
-    "applyUrl": "https://www.anthropic.com/careers",
+    "applyUrl": "https://openai.com/careers",
     "relevanceScore": 88,
     "matchReason": "Strong fit for AI-oriented frontend candidates"
   },
@@ -287,8 +287,8 @@
   {
     "id": "job-016",
     "title": "ML Engineering Intern",
-    "company": "Anthropic",
-    "companyLogo": "A",
+    "company": "OpenAI",
+    "companyLogo": "O",
     "companyColor": "#d97706",
     "location": "Remote",
     "type": "Internship",
@@ -299,7 +299,7 @@
     "sourceUrl": "https://remoteok.com",
     "description": "Support applied ML workflows around evaluation, data tooling, and experiment tracking.",
     "requirements": ["Python", "ML basics", "Jupyter", "Strong communication"],
-    "applyUrl": "https://www.anthropic.com/careers",
+    "applyUrl": "https://openai.com/careers",
     "relevanceScore": 93,
     "matchReason": "Excellent match for ML interns with Python focus"
   },

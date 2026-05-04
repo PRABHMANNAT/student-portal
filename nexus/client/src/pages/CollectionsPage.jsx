@@ -3,6 +3,7 @@ import { ArrowRight, NotebookPen, Trash2 } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+import CompanyLogo from '../components/CompanyLogo';
 import AppShell from '../components/Shell/AppShell';
 import { useApp } from '../context/AppContext';
 
@@ -257,9 +258,12 @@ export default function CollectionsPage() {
                       </button>
 
                       <div className="collections-job-top">
-                        <div className="collections-job-logo" style={{ background: job?.companyColor || '#00b4a0' }}>
-                          {(job?.companyInitial || job?.company?.slice(0, 1) || 'J').toUpperCase()}
-                        </div>
+                        <CompanyLogo
+                          company={job?.company || item.title}
+                          domain={job?.companyDomain}
+                          url={job?.applyUrl}
+                          links={job?.links}
+                        />
                         <div>
                           <strong>{job?.company || item.title}</strong>
                           <span>{job?.postedAt || formatSavedDate(item.savedAt)}</span>

@@ -1,6 +1,5 @@
-import Anthropic from '@anthropic-ai/sdk';
-import Groq from 'groq-sdk';
 import mongoose from 'mongoose';
+import OpenAI from 'openai';
 
 import Note from '../models/Note.js';
 import { notesDemo } from './demoCatalog.js';
@@ -46,41 +45,16 @@ Be thorough but organized. Include:
 Topic: ${query}`;
 }
 
-async function streamWithAnthropic(res, query) {
-  if (!process.env.ANTHROPIC_API_KEY) {
-    throw new Error('Missing ANTHROPIC_API_KEY');
+async function streamWithOpenAI(res, query) {
+  const apiKey = process.env.OPENAI_API_KEY || process.env.VITE_OPENAI_API_KEY;
+  if (!apiKey) {
+    throw new Error('Missing OpenAI API key');
   }
 
-  const client = new Anthropic({
-    apiKey: process.env.ANTHROPIC_API_KEY
-  });
-
-  const stream = await client.messages.stream({
-    model: 'claude-sonnet-4-20250514',
-    max_tokens: 3000,
-    system:
-      'You are Athena, an expert educator. Generate comprehensive, well-structured notes in Markdown format. Use ## headings, bullets, bold key terms, code blocks, practical examples, common pitfalls, and a quick reference summary. Respond with markdown only.',
-    messages: [{ role: 'user', content: query }]
-  });
-
-  for await (const chunk of stream) {
-    if (chunk.type === 'content_block_delta' && chunk.delta?.text) {
-      res.write(`data: ${JSON.stringify({ text: chunk.delta.text })}\n\n`);
-    }
-  }
-}
-
-async function streamWithGroq(res, query) {
-  if (!process.env.GROQ_API_KEY) {
-    throw new Error('Missing GROQ_API_KEY');
-  }
-
-  const client = new Groq({
-    apiKey: process.env.GROQ_API_KEY
-  });
+  const client = new OpenAI({ apiKey });
 
   const stream = await client.chat.completions.create({
-    model: 'llama3-70b-8192',
+    model: 'gpt-4o-mini',
     temperature: 0.3,
     stream: true,
     messages: [
@@ -108,21 +82,12 @@ export async function streamNotes({ query, res }) {
   setSseHeaders(res);
 
   try {
-    await streamWithAnthropic(res, query);
+    await streamWithOpenAI(res, query);
     res.write('data: [DONE]\n\n');
     res.end();
     return;
   } catch {
-    // Try Groq next.
-  }
-
-  try {
-    await streamWithGroq(res, query);
-    res.write('data: [DONE]\n\n');
-    res.end();
-    return;
-  } catch {
-    // Fall through to demo stream.
+    // Fall through to demo stream when OpenAI is unavailable.
   }
 
   await streamDemoContent(res, notesDemo.note.content);
@@ -137,7 +102,7 @@ export async function saveNote({ title, content, comments = [], userId = 'guest'
       title,
       content,
       comments,
-      source: process.env.ANTHROPIC_API_KEY ? 'claude' : process.env.GROQ_API_KEY ? 'groq' : 'demo'
+      source: (process.env.OPENAI_API_KEY || process.env.VITE_OPENAI_API_KEY) ? 'openai' : 'demo'
     });
 
     return {

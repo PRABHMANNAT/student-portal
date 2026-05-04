@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 
 import { useApp } from '../../context/AppContext';
+import UserAvatar from '../UserAvatar';
 
 export default function AuthDialog() {
   const { authOpen, setAuthOpen, session, login, register, logout } = useApp();
@@ -60,8 +61,13 @@ export default function AuthDialog() {
 
             {!session.meta?.guest ? (
               <div className="auth-summary">
-                <p className="auth-current-name">{session.user.name}</p>
-                <p className="auth-current-email">{session.user.email}</p>
+                <div className="auth-current-user">
+                  <UserAvatar seed={session.user?.username || session.user?.name} name={session.user?.name} size={48} />
+                  <div>
+                    <p className="auth-current-name">{session.user.name}</p>
+                    <p className="auth-current-email">{session.user.email}</p>
+                  </div>
+                </div>
                 <button type="button" className="primary-button" onClick={logout}>
                   Sign out
                 </button>
@@ -107,4 +113,3 @@ export default function AuthDialog() {
     </AnimatePresence>
   );
 }
-

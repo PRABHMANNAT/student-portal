@@ -3,10 +3,9 @@ import * as cheerio from 'cheerio';
 import mongoose from 'mongoose';
 
 import Collection from '../models/Collection.js';
-import { generateWithAnthropic } from './anthropicService.js';
 import { jobsDemo } from './demoCatalog.js';
-import { generateWithGroq } from './groqService.js';
 import { addMemoryCollection } from './memoryStore.js';
+import { generateWithOpenAI } from './openaiService.js';
 
 const latestJobs = new Map();
 
@@ -111,6 +110,46 @@ function scoreJob(profile, job) {
   return Math.min(99, Math.max(60, score));
 }
 
+function formatSalaryValue(value) {
+  if (value === null || value === undefined || value === '') {
+    return '';
+  }
+
+  if (typeof value === 'number') {
+    return `$${Math.round(value).toLocaleString()}`;
+  }
+
+  const stringValue = String(value).trim();
+  if (!stringValue || stringValue.toLowerCase() === 'undefined') {
+    return '';
+  }
+
+  return stringValue.startsWith('$') ? stringValue : `$${stringValue}`;
+}
+
+function formatSalary(job = {}) {
+  const salaryText = String(job.salary || '').trim();
+
+  if (salaryText && !salaryText.includes('undefined')) {
+    return salaryText;
+  }
+
+  const salaryMin = job.salaryMin ?? job.salary_min ?? job.minSalary;
+  const salaryMax = job.salaryMax ?? job.salary_max ?? job.maxSalary;
+  const minText = formatSalaryValue(salaryMin);
+  const maxText = formatSalaryValue(salaryMax);
+
+  if (!minText && !maxText) {
+    return 'Salary not disclosed';
+  }
+
+  if (minText && !maxText) {
+    return `${minText}+`;
+  }
+
+  return `${minText} - ${maxText}`;
+}
+
 function normalizeJob(job, index, fallbackSource, profile) {
   const title = job.title || job.position || profile.role || 'Open role';
   const company = job.company || job.company_name || 'Hiring Team';
@@ -134,7 +173,9 @@ function normalizeJob(job, index, fallbackSource, profile) {
     postedAt: job.postedAt || job.date || job.created_at || 'Fresh',
     location,
     type,
-    salary: job.salary || job.salary_min && job.salary_max ? `$${job.salary_min} - $${job.salary_max}` : 'Compensation not listed',
+    salary: formatSalary(job),
+    salaryMin: job.salaryMin ?? job.salary_min ?? job.minSalary,
+    salaryMax: job.salaryMax ?? job.salary_max ?? job.maxSalary,
     tags,
     summary: job.summary || description.slice(0, 140),
     description,
@@ -174,10 +215,10 @@ function dedupeJobs(jobs) {
   });
 }
 
-async function parseIntentWithGroq(input) {
+async function parseIntentWithOpenAI(input) {
   const systemPrompt =
     'Extract job search params as JSON with shape { role, level, type, keywords, location }. Respond with JSON only.';
-  const response = await generateWithGroq({
+  const response = await generateWithOpenAI({
     systemPrompt,
     userPrompt: typeof input === 'string' ? input : JSON.stringify(input)
   });
@@ -195,7 +236,7 @@ async function parseJobSearchIntent(payload = {}) {
   const naturalInput = payload.query || [payload.role, payload.experience, payload.type, payload.stack, payload.location].filter(Boolean).join(', ');
 
   try {
-    const parsed = await parseIntentWithGroq(naturalInput);
+    const parsed = await parseIntentWithOpenAI(naturalInput);
     return normalizeProfile({
       role: parsed.role || direct.role,
       experience: parsed.level || direct.experience,
@@ -260,10 +301,8 @@ async function fetchRemoteOkJobs(profile) {
         type: item.type || 'Full-time',
         tags: [item.candidate_required_location, ...(item.tags || [])],
         description: cheerio.load(`<div>${item.description || ''}</div>`).text().replace(/\s+/g, ' ').trim(),
-        salary:
-          item.salary_min && item.salary_max
-            ? `$${item.salary_min.toLocaleString()} - $${item.salary_max.toLocaleString()}`
-            : 'Compensation not listed',
+        salaryMin: item.salary_min,
+        salaryMax: item.salary_max,
         applyUrl: item.url,
         source: 'RemoteOK'
       },
@@ -388,10 +427,8 @@ async function fetchAdzunaJobs(profile) {
         location: job.location?.display_name,
         type: job.contract_time || job.contract_type || 'Full-time',
         description: cheerio.load(`<div>${job.description || ''}</div>`).text().replace(/\s+/g, ' ').trim(),
-        salary:
-          job.salary_min && job.salary_max
-            ? `$${Math.round(job.salary_min).toLocaleString()} - $${Math.round(job.salary_max).toLocaleString()}`
-            : 'Compensation not listed',
+        salaryMin: job.salary_min,
+        salaryMax: job.salary_max,
         applyUrl: job.redirect_url,
         source: 'Adzuna'
       },
@@ -459,22 +496,15 @@ Return a JSON array with items { id, relevanceScore, matchReason }.
 Scores must be 0-100. Use the original ids only.`;
   const userPrompt = JSON.stringify({ profile, jobs: jobs.slice(0, 30) });
 
-  const providers = [
-    ['anthropic', generateWithAnthropic],
-    ['groq', generateWithGroq]
-  ];
-
-  for (const [provider, runner] of providers) {
-    try {
-      const response = await runner({ systemPrompt, userPrompt });
-      const ranking = extractJsonPayload(response);
-      return {
-        jobs: applyRankingPayload(jobs, Array.isArray(ranking) ? ranking : []),
-        provider
-      };
-    } catch {
-      // Continue through the fallback chain.
-    }
+  try {
+    const response = await generateWithOpenAI({ systemPrompt, userPrompt });
+    const ranking = extractJsonPayload(response);
+    return {
+      jobs: applyRankingPayload(jobs, Array.isArray(ranking) ? ranking : []),
+      provider: 'openai'
+    };
+  } catch {
+    // Fall back to deterministic ranking when OpenAI is unavailable.
   }
 
   return {

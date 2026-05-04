@@ -13,7 +13,7 @@
           "label": "HTML & CSS",
           "type": "core",
           "resources": [
-            { "title": "MDN Web Docs", "url": "https://developer.mozilla.org/en-US/docs/Learn/HTML" },
+            { "title": "MDN Reference", "url": "https://developer.mozilla.org/en-US/docs/Learn/HTML" },
             { "title": "freeCodeCamp Responsive Web Design", "url": "https://www.freecodecamp.org/learn/2022/responsive-web-design/" }
           ],
           "description": "Foundation of all web development, including layout, semantic structure, and accessible styling.",
@@ -47,7 +47,7 @@
           "type": "core",
           "resources": [
             { "title": "MDN HTTP Overview", "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview" },
-            { "title": "roadmap.sh Internet", "url": "https://roadmap.sh/internet" }
+            { "title": "web.dev Reference", "url": "https://web.dev/learn" }
           ],
           "description": "HTTP, browsers, DNS, caching, and request-response flow for web applications.",
           "estimatedHours": 18
@@ -277,7 +277,7 @@
           "type": "core",
           "resources": [
             { "title": "Google Tech Dev Guide Resume Tips", "url": "https://techdevguide.withgoogle.com/resources/resume-writing/" },
-            { "title": "roadmap.sh Portfolio Projects", "url": "https://roadmap.sh/projects" }
+            { "title": "GitHub Explore", "url": "https://github.com/explore" }
           ],
           "description": "Translate your projects into recruiter-readable proof with strong writeups and visible links.",
           "estimatedHours": 16

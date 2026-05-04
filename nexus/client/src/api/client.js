@@ -7,7 +7,7 @@
 
 const DEMO_MODE = import.meta.env.VITE_DEMO_MODE === 'true';
 
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '' : 'http://localhost:3001');
 
 /**
  * Build a full API URL from a relative path.

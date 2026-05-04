@@ -1,14 +1,15 @@
 import OpenAI from 'openai';
 
-const MODEL = 'gpt-4o';
+const MODEL = 'gpt-4o-mini';
 
 export async function generateWithOpenAI({ systemPrompt, userPrompt }) {
-  if (!process.env.OPENAI_API_KEY) {
-    throw new Error('Missing OPENAI_API_KEY');
+  const apiKey = process.env.OPENAI_API_KEY || process.env.VITE_OPENAI_API_KEY;
+  if (!apiKey) {
+    throw new Error('Missing OpenAI API key');
   }
 
   const client = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY
+    apiKey
   });
 
   const response = await client.responses.create({
@@ -27,4 +28,3 @@ export async function generateWithOpenAI({ systemPrompt, userPrompt }) {
 
   return response.output_text || '';
 }
-

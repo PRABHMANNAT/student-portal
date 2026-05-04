@@ -5,8 +5,8 @@ import {
 } from '../services/roadmapService.js';
 
 export async function generateRoadmap(req, res) {
-  const { query = 'Full Stack Developer path', userId = 'guest' } = req.body;
-  const result = await generateRoadmapData({ query, userId });
+  const { query = 'Full Stack Developer path', userId = 'guest', profile = {} } = req.body;
+  const result = await generateRoadmapData({ query, userId, profile });
 
   res.json({
     roadmap: result.roadmap,

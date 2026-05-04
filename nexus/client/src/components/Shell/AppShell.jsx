@@ -1,16 +1,27 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowUp, BookMarked, BriefcaseBusiness, FilePenLine, Route, UserRound } from 'lucide-react';
-import { Children, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  ArrowUp,
+  Bookmark,
+  Briefcase,
+  FileText,
+  Map
+} from 'lucide-react';
+import { Children, useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 
+import ingenLogo from '../../assets/ingen-logo.png';
 import { useApp } from '../../context/AppContext';
+import AgentLogo from '../AgentLogo';
+import UserAvatar from '../UserAvatar';
 import AuthDialog from './AuthDialog';
 
 const NAV_ITEMS = [
   {
     to: '/roadmap',
-    icon: Route,
-    label: 'ARISTOTLE',
+    variant: 'aristotle',
+    icon: Map,
+    label: 'Roadmap',
+    accent: '#FF6B35',
     agentName: 'Aristotle',
     askLine: 'Ask Aristotle to map a focused career roadmap.',
     suggestions: [
@@ -22,8 +33,10 @@ const NAV_ITEMS = [
   },
   {
     to: '/jobs',
-    icon: BriefcaseBusiness,
-    label: 'COLUMBUS',
+    variant: 'columbus',
+    icon: Briefcase,
+    label: 'Jobs',
+    accent: '#3B82F6',
     agentName: 'Columbus',
     askLine: 'Ask Columbus to rank roles and surface strong fits.',
     suggestions: [
@@ -35,8 +48,10 @@ const NAV_ITEMS = [
   },
   {
     to: '/notes',
-    icon: FilePenLine,
-    label: 'ATHENA',
+    variant: 'athena',
+    icon: FileText,
+    label: 'Notes',
+    accent: '#A855F7',
     agentName: 'Athena',
     askLine: 'Ask Athena to turn rough material into clean notes.',
     suggestions: [
@@ -48,8 +63,10 @@ const NAV_ITEMS = [
   },
   {
     to: '/collections',
-    icon: BookMarked,
-    label: 'COLLECTION',
+    variant: 'collection',
+    icon: Bookmark,
+    label: 'Collections',
+    accent: '#F59E0B',
     agentName: 'Collection',
     askLine: 'Ask Collection to filter saved roadmaps, jobs, or notes.',
     suggestions: ['analytics', 'internship', 'systems'],
@@ -57,35 +74,16 @@ const NAV_ITEMS = [
   }
 ];
 
-const ITEM_BY_ROUTE = Object.fromEntries(NAV_ITEMS.map((item) => [item.to, item]));
+const ROUTE_NAV_ITEMS = NAV_ITEMS.filter((item) => item.to);
+const ITEM_BY_ROUTE = Object.fromEntries(ROUTE_NAV_ITEMS.map((item) => [item.to, item]));
 
 const artifactTransition = {
   duration: 0.34,
   ease: [0.22, 1, 0.36, 1]
 };
 
-function AgentOrbit({ accentColor }) {
-  return (
-    <div className="shell-agent-orbit" aria-hidden="true">
-      <svg viewBox="0 0 80 80" className="shell-agent-orbit-svg">
-        <circle
-          cx="40"
-          cy="40"
-          r="28"
-          fill="none"
-          stroke={accentColor}
-          strokeWidth="2"
-          strokeDasharray="2 7"
-          strokeLinecap="round"
-          opacity="0.9"
-        />
-        <circle cx="40" cy="12" r="3.5" fill={accentColor} />
-        <circle cx="64.2" cy="50.5" r="2.8" fill={accentColor} opacity="0.72" />
-        <circle cx="17" cy="54.5" r="2.6" fill={accentColor} opacity="0.58" />
-      </svg>
-      <div className="shell-agent-core" />
-    </div>
-  );
+function getAgentLogoId(variant) {
+  return ['aristotle', 'athena', 'columbus'].includes(variant) ? variant : 'aristotle';
 }
 
 function EmptyArtifact({ agentName }) {
@@ -115,18 +113,15 @@ export default function AppShell({ chat = {}, artifact = {}, artifactSidebar = n
   const { pathname } = useLocation();
   const { session, setAuthOpen } = useApp();
   const inputRef = useRef(null);
-  const activeItem = ITEM_BY_ROUTE[pathname] || NAV_ITEMS[0];
+  const activeItem = ITEM_BY_ROUTE[pathname] || ROUTE_NAV_ITEMS[0];
   const [draft, setDraft] = useState('');
+  const [mobileChatOpen, setMobileChatOpen] = useState(false);
   const hideChat = Boolean(chat.hidden);
-
-  const suggestions = useMemo(
-    () => (chat.suggestions?.length ? chat.suggestions.slice(0, 3) : activeItem.suggestions),
-    [activeItem.suggestions, chat.suggestions]
-  );
 
   const messages = chat.messages || [];
   const agentName = chat.title || activeItem.agentName;
-  const placeholder = `Ask ${agentName}...`;
+  const placeholder = chat.placeholder || 'Ex: Senior Rust Engineer with...';
+  const activeAgentLogo = getAgentLogoId(activeItem.variant);
   const accentColor = chat.accentColor || 'var(--teal)';
   const statusColor = chat.statusColor || accentColor;
   const artifactKey =
@@ -141,12 +136,8 @@ export default function AppShell({ chat = {}, artifact = {}, artifactSidebar = n
 
   useEffect(() => {
     setDraft('');
+    setMobileChatOpen(false);
   }, [pathname]);
-
-  const handleSuggestionClick = (suggestion) => {
-    setDraft(suggestion);
-    inputRef.current?.focus();
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -165,8 +156,10 @@ export default function AppShell({ chat = {}, artifact = {}, artifactSidebar = n
       <nav className="shell-nav">
         <div className="shell-nav-top">
           <NavLink to="/roadmap" className="shell-logo" aria-label="Go to roadmap">
-            N
+            <img src={ingenLogo} alt="Ingen" className="shell-logo-image" />
           </NavLink>
+
+          <span className="shell-nav-divider" aria-hidden="true" />
 
           <div className="shell-nav-stack">
             {NAV_ITEMS.map((item) => {
@@ -177,71 +170,49 @@ export default function AppShell({ chat = {}, artifact = {}, artifactSidebar = n
                   key={item.to}
                   to={item.to}
                   className={({ isActive }) => `shell-nav-item ${isActive ? 'is-active' : ''}`}
+                  style={{ '--shell-agent-accent': item.accent }}
                   aria-label={item.label}
                 >
-                  <Icon size={20} strokeWidth={1.95} />
+                  <span className="shell-nav-icon-box">
+                    <Icon size={20} strokeWidth={1.9} />
+                  </span>
                   <span className="shell-nav-tooltip">{item.label}</span>
                 </NavLink>
               );
             })}
           </div>
         </div>
+      </nav>
 
-        <button
-          type="button"
-          className="shell-avatar-button"
-          onClick={() => setAuthOpen(true)}
-          title={session.meta?.guest ? 'Open sign in' : session.user?.email}
-        >
-          {session.meta?.guest ? (
-            <UserRound size={16} strokeWidth={2} />
-          ) : (
-            <span>{session.user?.name?.slice(0, 1)?.toUpperCase() || 'U'}</span>
-          )}
-        </button>
+      <nav className="shell-mobile-tabs" aria-label="Primary mobile navigation">
+        {ROUTE_NAV_ITEMS.map((item) => {
+          const Icon = item.icon;
+
+          return (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              className={({ isActive }) => `shell-mobile-tab ${isActive ? 'is-active' : ''}`}
+              aria-label={item.label}
+            >
+              <Icon size={20} strokeWidth={1.9} />
+            </NavLink>
+          );
+        })}
       </nav>
 
       {hideChat ? null : (
         <aside
-          className="shell-chat"
+          className={`shell-chat ${mobileChatOpen ? 'is-mobile-open' : ''}`}
           style={{
             '--shell-agent-accent': accentColor,
             '--shell-status-color': statusColor
           }}
         >
           <div className="shell-chat-top">
-            <AgentOrbit accentColor={accentColor} />
-            <p className="shell-agent-label">{agentName.toUpperCase()}</p>
-            <div className="shell-agent-status">
-              <span className="shell-agent-status-dot" />
-              <span>ONLINE</span>
-            </div>
-            <h2 className="shell-ready-heading">READY.</h2>
-            <p className="shell-agent-copy">{chat.description || activeItem.askLine}</p>
-
-            {chat.secondaryAction ? (
-              <button
-                type="button"
-                className="shell-secondary-chip"
-                onClick={chat.secondaryAction.onClick}
-                disabled={chat.secondaryAction.disabled}
-              >
-                {chat.secondaryAction.label}
-              </button>
-            ) : null}
-
-            <div className="shell-suggestions">
-              {suggestions.map((suggestion) => (
-                <button
-                  key={suggestion}
-                  type="button"
-                  className="shell-suggestion-pill"
-                  onClick={() => handleSuggestionClick(suggestion)}
-                >
-                  {suggestion}
-                </button>
-              ))}
-            </div>
+            <AgentLogo agent={activeAgentLogo} size={80} status="online" />
+            <span className="shell-terminal-rule" aria-hidden="true" />
+            <p className="shell-terminal-question">Who's the one you're searching for?</p>
           </div>
 
           <div className="shell-chat-history">
@@ -255,9 +226,15 @@ export default function AppShell({ chat = {}, artifact = {}, artifactSidebar = n
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.22 }}
                 >
+                  {message.role === 'assistant' ? (
+                    <AgentLogo agent={activeAgentLogo} size={28} className="shell-bubble-avatar" />
+                  ) : null}
                   <div className={`shell-message-bubble ${message.role === 'user' ? 'is-user' : 'is-agent'}`}>
                     <p>{message.text}</p>
                   </div>
+                  {message.role === 'user' ? (
+                    <UserAvatar seed={session.user?.name === 'Demo Student' ? 'DemoStudent' : session.user?.name} name={session.user?.name} size={32} className="shell-bubble-avatar" />
+                  ) : null}
                 </motion.div>
               ))}
 
@@ -269,10 +246,19 @@ export default function AppShell({ chat = {}, artifact = {}, artifactSidebar = n
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                 >
+                  <AgentLogo agent={activeAgentLogo} size={28} className="shell-bubble-avatar" />
                   <div className="shell-message-bubble is-agent is-loading">
-                    <span className="shell-loading-dot" />
-                    <span className="shell-loading-dot" />
-                    <span className="shell-loading-dot" />
+                    <span className="shell-loading-word" aria-label={`${agentName} is working`}>
+                      {Array.from(agentName).map((char, index) => (
+                        <span
+                          key={`${agentName}-${char}-${index}`}
+                          style={{ '--loading-letter-delay': `${index * 0.06}s` }}
+                          aria-hidden="true"
+                        >
+                          {char}
+                        </span>
+                      ))}
+                    </span>
                   </div>
                 </motion.div>
               ) : null}
@@ -304,6 +290,17 @@ export default function AppShell({ chat = {}, artifact = {}, artifactSidebar = n
           </div>
         </aside>
       )}
+
+      {!hideChat ? (
+        <button
+          type="button"
+          className="shell-mobile-chat-button"
+          onClick={() => setMobileChatOpen((current) => !current)}
+          aria-label="Toggle Aristotle chat"
+        >
+          💬
+        </button>
+      ) : null}
 
       <section className="shell-artifact">
         <div className={`shell-artifact-scroll ${artifact.fullBleed ? 'is-full-bleed' : ''}`}>

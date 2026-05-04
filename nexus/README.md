@@ -49,13 +49,15 @@ Open [http://localhost:5173](http://localhost:5173)
 
 1. Copy the example env file:
    ```bash
-   cp .env.example server/.env
+   cp .env.example .env
    ```
-2. Add your API keys to `server/.env`.
+2. Add your API keys to `.env`.
 3. Start the app:
    ```bash
    npm run dev
    ```
+
+If port `3001` is already occupied, set `PORT` and `VITE_API_URL` to a matching alternate port before starting the app.
 
 ## Scripts
 
@@ -87,5 +89,5 @@ The app is designed to work fully offline in demo mode:
 ## Tech Stack
 
 - **Frontend:** React 18, Vite, Framer Motion, React Three Fiber, Lucide Icons
-- **Backend:** Express, Mongoose, Anthropic SDK, Groq SDK, OpenAI SDK
+- **Backend:** Express, Mongoose, OpenAI SDK
 - **Database:** MongoDB (optional — uses in-memory store when unavailable)

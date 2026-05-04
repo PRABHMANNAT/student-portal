@@ -7,7 +7,7 @@ const RoadmapSchema = new Schema({
   title: String,
   query: String,
   data: { type: Object, required: true },
-  source: { type: String, enum: ['claude', 'groq', 'openai', 'demo'] },
+  source: { type: String, enum: ['openai', 'demo'] },
   savedAt: { type: Date, default: Date.now },
   tags: [String]
 });

@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 
+import CompanyLogo from '../CompanyLogo';
+
 export default function JobsArtifact({ jobs, highlightedId, onHighlight }) {
   const activeJob = jobs.results.find((job) => job.id === highlightedId) || jobs.results[0];
 
@@ -29,12 +31,15 @@ export default function JobsArtifact({ jobs, highlightedId, onHighlight }) {
               onClick={() => onHighlight(job.id)}
               whileHover={{ x: 4 }}
             >
-              <div>
-                <span className="job-company">{job.company}</span>
-                <h4>{job.title}</h4>
-                <p>
-                  {job.location} • {job.mode}
-                </p>
+              <div className="job-row-brand">
+                <CompanyLogo company={job.company} domain={job.companyDomain} url={job.applyUrl} links={job.links} size="sm" />
+                <div>
+                  <span className="job-company">{job.company}</span>
+                  <h4>{job.title}</h4>
+                  <p>
+                    {job.location} • {job.mode}
+                  </p>
+                </div>
               </div>
               <span className="job-match">{job.match}</span>
             </motion.button>
@@ -94,4 +99,3 @@ export default function JobsArtifact({ jobs, highlightedId, onHighlight }) {
     </div>
   );
 }
-

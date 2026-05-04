@@ -1,5 +1,7 @@
-import { BriefcaseBusiness, BookOpenText, Compass, Map, UserRound } from 'lucide-react';
+import { BriefcaseBusiness, BookOpenText, Compass, Map } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
+
+import UserAvatar from '../UserAvatar';
 
 const items = [
   { to: '/roadmap', icon: Map, label: 'Aristotle' },
@@ -38,9 +40,8 @@ export default function NavBar({ onOpenAuth, session }) {
         onClick={onOpenAuth}
         title={session.meta?.guest ? 'Open sign in' : session.user?.email}
       >
-        {session.meta?.guest ? <UserRound size={18} strokeWidth={2.1} /> : <span>{session.user?.name?.slice(0, 1) || 'U'}</span>}
+        <UserAvatar seed={session.user?.username || session.user?.name} name={session.user?.name} size={40} />
       </button>
     </nav>
   );
 }
-
