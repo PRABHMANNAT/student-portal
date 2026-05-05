@@ -1,0 +1,521 @@
+{
+  "page": {
+    "id": "columbus-job-search",
+    "version": "v1.0-mock",
+    "mode": "mock-demo-no-backend",
+    "theme": {
+      "background": "#F5F2EA",
+      "railSurface": "#F2EEE3",
+      "canvas": "#FAF9F5",
+      "card": "#FFFFFF",
+      "border": "#E8E1D4",
+      "textPrimary": "#111111",
+      "textSecondary": "#7C786F",
+      "mint": "#BFEFE8",
+      "mintStrong": "#14C8B5",
+      "orange": "#F39A43",
+      "orangeSoft": "#FFE5CC",
+      "purple": "#8D73F6",
+      "purpleSoft": "#EEE8FF",
+      "green": "#38C172",
+      "shadowSoft": "0 16px 40px rgba(19,18,14,0.06)",
+      "shadowMedium": "0 20px 50px rgba(19,18,14,0.10)"
+    },
+    "layout": {
+      "desktop": {
+        "navWidth": 88,
+        "sidebarWidth": 384
+      },
+      "tablet": {
+        "sidebarWidth": 332
+      }
+    }
+  },
+  "orb": {
+    "name": "Columbus",
+    "states": [
+      {
+        "key": "idle",
+        "label": "Idle",
+        "description": "Gentle breathing pulse, subtle glow, presence dot lightly animated."
+      },
+      {
+        "key": "listening",
+        "label": "Listening",
+        "description": "Input-focused state with brighter ring, slight scale emphasis, and suggestion chips reveal."
+      },
+      {
+        "key": "searching",
+        "label": "Searching the web",
+        "description": "Radial scan sweep, orbiting dots, flowing particles, active glow."
+      },
+      {
+        "key": "thinking",
+        "label": "Thinking",
+        "description": "Connected nodes, routing lines, staged progress labels, synthesis motion."
+      },
+      {
+        "key": "complete",
+        "label": "Complete",
+        "description": "Motion settles, green state stabilizes, soft completion flash."
+      }
+    ],
+    "progressStages": [
+      "Gathering roles",
+      "Ranking fit",
+      "Reading requirements",
+      "Structuring output"
+    ]
+  },
+  "assistant": {
+    "title": "Who's the one you're searching for?",
+    "helperCopy": "Columbus searches mock job signals and stages recruiter-ready results.",
+    "quickSuggestions": [
+      "Frontend engineer",
+      "Backend engineer",
+      "ML intern",
+      "Product analyst"
+    ],
+    "placeholder": "Ex: Senior Rust Engineer",
+    "transcript": [
+      {
+        "id": "m1",
+        "role": "assistant",
+        "type": "message",
+        "text": "What role are you targeting?"
+      },
+      {
+        "id": "m2",
+        "role": "user",
+        "type": "message",
+        "text": "Frontend engineer"
+      },
+      {
+        "id": "m3",
+        "role": "assistant",
+        "type": "message",
+        "text": "Remote, hybrid, or on-site?"
+      },
+      {
+        "id": "m4",
+        "role": "user",
+        "type": "message",
+        "text": "Remote"
+      },
+      {
+        "id": "m5",
+        "role": "assistant",
+        "type": "message",
+        "text": "Any specific tech stack or industry?"
+      },
+      {
+        "id": "m6",
+        "role": "user",
+        "type": "message",
+        "text": "React, TypeScript, SaaS"
+      },
+      {
+        "id": "m7",
+        "role": "assistant",
+        "type": "status",
+        "text": "Searching the web..."
+      },
+      {
+        "id": "m8",
+        "role": "assistant",
+        "type": "status",
+        "text": "Ranking 20 roles..."
+      },
+      {
+        "id": "m9",
+        "role": "assistant",
+        "type": "message",
+        "text": "I found 20 roles and staged them in the artifact panel. Open a card to inspect fit, requirements, and apply paths."
+      }
+    ]
+  },
+  "resultsHeader": {
+    "filters": [
+      "All",
+      "Remote",
+      "Full-time",
+      "Internship",
+      "By Company"
+    ],
+    "activeFilter": "All",
+    "title": "COLUMBUS FOUND 20 ROLES",
+    "activeChips": [
+      "Frontend Developer",
+      "1 year experience",
+      "Remote",
+      "React",
+      "TypeScript"
+    ],
+    "sources": [
+      "RemoteOK",
+      "HN Who's Hiring",
+      "GitHub Jobs Archive",
+      "Adzuna"
+    ]
+  },
+  "emptyState": {
+    "title": "Your Columbus output appears here",
+    "description": "Run a role search to stage ranked jobs, fit summaries, requirements, and apply paths.",
+    "illustrationLabel": "Signal graph illustration"
+  },
+  "jobs": [
+    {
+      "id": "northstar-frontend-engineer",
+      "company": "Northstar Labs",
+      "companyInitials": "NL",
+      "title": "Frontend Engineer",
+      "location": "Remote",
+      "employmentType": "Full-time",
+      "salary": "$78,000 - $96,000",
+      "postedAt": "2 days ago",
+      "tags": [
+        "Remote",
+        "Full-time",
+        "React",
+        "TypeScript"
+      ],
+      "fitSummary": "Strong fit for a remote frontend profile with early-career React experience.",
+      "source": "RemoteOK",
+      "matchScore": 96,
+      "roleBrief": "Northstar Labs is hiring a frontend engineer to ship polished dashboards, artifacts, and collaboration flows across its student productivity suite. The team wants someone comfortable with React, component architecture, and product iteration.",
+      "requirements": [
+        "1+ year building React applications",
+        "Strong CSS and component systems fluency",
+        "Comfort with API integration and product QA",
+        "Portfolio or shipped work that shows interface judgment"
+      ],
+      "companyInfo": {
+        "industry": "EdTech SaaS",
+        "team": "58 employees",
+        "location": "Remote-first",
+        "whyItMatches": "Strong fit for a remote frontend profile with early-career React experience."
+      },
+      "applyPaths": [
+        {
+          "label": "Direct application",
+          "domain": "jobs.northstarlabs.io",
+          "action": "Apply"
+        },
+        {
+          "label": "Team overview",
+          "domain": "northstarlabs.io",
+          "action": "Company"
+        }
+      ]
+    },
+    {
+      "id": "orbit-frontend-developer",
+      "company": "Orbit Commerce",
+      "companyInitials": "OC",
+      "title": "Frontend Developer",
+      "location": "Remote",
+      "employmentType": "Full-time",
+      "salary": "$70,000 - $88,000",
+      "postedAt": "1 day ago",
+      "tags": [
+        "Remote",
+        "Full-time",
+        "Next.js",
+        "Design Systems"
+      ],
+      "fitSummary": "Close match for frontend candidates who want remote product work with design exposure.",
+      "source": "Adzuna",
+      "matchScore": 93,
+      "roleBrief": "Orbit Commerce is looking for a frontend developer who can turn product specs into resilient, responsive interfaces. You will work closely with design and growth teams on merchant-facing workflows.",
+      "requirements": [
+        "Experience with React or Next.js",
+        "Good JavaScript and CSS fundamentals",
+        "Comfort collaborating with design and PM teams",
+        "Strong sense for polished interaction detail"
+      ],
+      "companyInfo": {
+        "industry": "Commerce Infrastructure",
+        "team": "110 employees",
+        "location": "Austin, TX",
+        "whyItMatches": "Close match for frontend candidates who want remote product work with design exposure."
+      },
+      "applyPaths": [
+        {
+          "label": "Direct application",
+          "domain": "jobs.orbitcommerce.io",
+          "action": "Apply"
+        },
+        {
+          "label": "Team overview",
+          "domain": "orbitcommerce.io",
+          "action": "Company"
+        }
+      ]
+    },
+    {
+      "id": "beacon-ui-engineer",
+      "company": "Beacon Cloud",
+      "companyInitials": "BC",
+      "title": "UI Engineer",
+      "location": "Hybrid - Bengaluru",
+      "employmentType": "Full-time",
+      "salary": "$18,000 - $24,000",
+      "postedAt": "3 days ago",
+      "tags": [
+        "Hybrid",
+        "Full-time",
+        "React",
+        "Accessibility"
+      ],
+      "fitSummary": "Strong option for candidates open to hybrid work and UI-heavy dashboard products.",
+      "source": "LinkedIn",
+      "matchScore": 88,
+      "roleBrief": "Beacon Cloud is building internal and customer-facing dashboards for cloud operations teams. The role favors engineers who care about interface clarity, accessibility, and design-detail execution.",
+      "requirements": [
+        "React UI development experience",
+        "Strong HTML/CSS accessibility awareness",
+        "Comfort with internal tooling products",
+        "Ability to collaborate across PM and design"
+      ],
+      "companyInfo": {
+        "industry": "Cloud Operations",
+        "team": "72 employees",
+        "location": "Bengaluru",
+        "whyItMatches": "Good for UI-heavy frontend profiles with dashboard experience."
+      },
+      "applyPaths": [
+        {
+          "label": "Direct application",
+          "domain": "beaconcloud.com/careers",
+          "action": "Apply"
+        },
+        {
+          "label": "Team overview",
+          "domain": "beaconcloud.com",
+          "action": "Company"
+        }
+      ]
+    },
+    {
+      "id": "helio-ml-intern",
+      "company": "Helio AI",
+      "companyInitials": "HA",
+      "title": "Machine Learning Intern",
+      "location": "Remote",
+      "employmentType": "Internship",
+      "salary": "$1,200 / month",
+      "postedAt": "Today",
+      "tags": [
+        "Remote",
+        "Internship",
+        "Python",
+        "ML"
+      ],
+      "fitSummary": "Excellent match for an ML intern profile with Python skills and limited formal experience.",
+      "source": "RemoteOK",
+      "matchScore": 84,
+      "roleBrief": "Helio AI is seeking an intern to support data labeling pipelines, model evaluation, and lightweight product experimentation across an applied AI stack.",
+      "requirements": [
+        "Python fundamentals",
+        "Comfort with notebooks and data cleaning",
+        "Interest in model evaluation",
+        "Ability to communicate findings clearly"
+      ],
+      "companyInfo": {
+        "industry": "Applied AI",
+        "team": "24 employees",
+        "location": "Remote-first",
+        "whyItMatches": "Strong entry point for candidates exploring ML internships."
+      },
+      "applyPaths": [
+        {
+          "label": "Direct application",
+          "domain": "helio.ai/jobs",
+          "action": "Apply"
+        },
+        {
+          "label": "Team overview",
+          "domain": "helio.ai",
+          "action": "Company"
+        }
+      ]
+    },
+    {
+      "id": "stackline-product-engineer",
+      "company": "Stackline Studio",
+      "companyInitials": "SS",
+      "title": "Product Engineer",
+      "location": "Remote",
+      "employmentType": "Full-time",
+      "salary": "$82,000 - $102,000",
+      "postedAt": "4 days ago",
+      "tags": [
+        "Remote",
+        "Full-time",
+        "React",
+        "Product"
+      ],
+      "fitSummary": "Great fit for frontend engineers who like shipping across design, product, and engineering.",
+      "source": "HN Who's Hiring",
+      "matchScore": 90,
+      "roleBrief": "Stackline Studio wants a product engineer who can own UI delivery end-to-end, collaborate closely with design, and move quickly inside a lean team.",
+      "requirements": [
+        "React or similar frontend framework experience",
+        "Ability to work across product ambiguity",
+        "Strong communication and iteration mindset",
+        "Shipped product work"
+      ],
+      "companyInfo": {
+        "industry": "Product Design Tools",
+        "team": "36 employees",
+        "location": "Remote-first",
+        "whyItMatches": "Strong choice for product-minded frontend profiles."
+      },
+      "applyPaths": [
+        {
+          "label": "Direct application",
+          "domain": "stacklinestudio.com/jobs",
+          "action": "Apply"
+        },
+        {
+          "label": "Team overview",
+          "domain": "stacklinestudio.com",
+          "action": "Company"
+        }
+      ]
+    },
+    {
+      "id": "vantaflow-react-engineer",
+      "company": "VantaFlow",
+      "companyInitials": "VF",
+      "title": "React Engineer",
+      "location": "Remote",
+      "employmentType": "Full-time",
+      "salary": "$76,000 - $94,000",
+      "postedAt": "2 days ago",
+      "tags": [
+        "Remote",
+        "Full-time",
+        "React",
+        "SaaS"
+      ],
+      "fitSummary": "Very solid fit for candidates focused on modern React products in SaaS environments.",
+      "source": "GitHub Jobs Archive",
+      "matchScore": 91,
+      "roleBrief": "VantaFlow is scaling its customer-facing platform and needs a React engineer to improve core workflows, performance, and UI consistency.",
+      "requirements": [
+        "Strong React foundations",
+        "Experience with reusable component systems",
+        "Comfort improving performance and state management",
+        "Good collaboration habits"
+      ],
+      "companyInfo": {
+        "industry": "Workflow SaaS",
+        "team": "67 employees",
+        "location": "Remote-first",
+        "whyItMatches": "Matches React-heavy candidates seeking SaaS product work."
+      },
+      "applyPaths": [
+        {
+          "label": "Direct application",
+          "domain": "vantaflow.com/careers",
+          "action": "Apply"
+        },
+        {
+          "label": "Team overview",
+          "domain": "vantaflow.com",
+          "action": "Company"
+        }
+      ]
+    },
+    {
+      "id": "alto-backend-engineer",
+      "company": "Alto Systems",
+      "companyInitials": "AS",
+      "title": "Backend Engineer",
+      "location": "Hybrid - Sydney",
+      "employmentType": "Full-time",
+      "salary": "$85,000 - $105,000",
+      "postedAt": "5 days ago",
+      "tags": [
+        "Hybrid",
+        "Full-time",
+        "Python",
+        "APIs"
+      ],
+      "fitSummary": "Good fit for backend-leaning software candidates who want API and data-model work.",
+      "source": "Adzuna",
+      "matchScore": 81,
+      "roleBrief": "Alto Systems is hiring a backend engineer to build service layers, APIs, and internal tools supporting logistics operations and customer integrations.",
+      "requirements": [
+        "Python or similar backend language",
+        "Comfort with REST APIs",
+        "Familiarity with SQL and data models",
+        "Interest in reliability and testing"
+      ],
+      "companyInfo": {
+        "industry": "Logistics Software",
+        "team": "95 employees",
+        "location": "Sydney",
+        "whyItMatches": "Relevant if the candidate wants backend-focused progression."
+      },
+      "applyPaths": [
+        {
+          "label": "Direct application",
+          "domain": "altosystems.io/jobs",
+          "action": "Apply"
+        },
+        {
+          "label": "Team overview",
+          "domain": "altosystems.io",
+          "action": "Company"
+        }
+      ]
+    },
+    {
+      "id": "meridian-data-analyst-intern",
+      "company": "Meridian Bio",
+      "companyInitials": "MB",
+      "title": "Data Analyst Intern",
+      "location": "Hybrid - Melbourne",
+      "employmentType": "Internship",
+      "salary": "$1,500 / month",
+      "postedAt": "6 days ago",
+      "tags": [
+        "Hybrid",
+        "Internship",
+        "SQL",
+        "Analytics"
+      ],
+      "fitSummary": "Useful match for data-oriented candidates who want internship exposure and analytics workflows.",
+      "source": "LinkedIn",
+      "matchScore": 76,
+      "roleBrief": "Meridian Bio is seeking a data analyst intern to support reporting, dashboard maintenance, and exploratory analysis across internal product and operations teams.",
+      "requirements": [
+        "SQL familiarity",
+        "Spreadsheet or dashboard experience",
+        "Comfort with basic reporting",
+        "Attention to detail"
+      ],
+      "companyInfo": {
+        "industry": "Biotech Operations",
+        "team": "140 employees",
+        "location": "Melbourne",
+        "whyItMatches": "Supports early-career candidates with analytics interests."
+      },
+      "applyPaths": [
+        {
+          "label": "Direct application",
+          "domain": "meridianbio.com/careers",
+          "action": "Apply"
+        },
+        {
+          "label": "Team overview",
+          "domain": "meridianbio.com",
+          "action": "Company"
+        }
+      ]
+    }
+  ],
+  "selectedJobId": "northstar-frontend-engineer"
+}

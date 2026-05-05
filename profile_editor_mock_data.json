@@ -1,0 +1,372 @@
+{
+  "page": {
+    "route": "/notes",
+    "newLabel": "Edit Profile",
+    "mode": "mock-demo-no-backend",
+    "theme": {
+      "background": "#F6F1E7",
+      "canvas": "#FBFAF5",
+      "paper": "#FFFFFF",
+      "ink": "#111111",
+      "muted": "#8E8B84",
+      "border": "#E8E1D4",
+      "mint": "#BFF3EB",
+      "mintStrong": "#16C7B7",
+      "purple": "#8B5CF6",
+      "purpleSoft": "#F1E8FF",
+      "orange": "#F29E64",
+      "green": "#2ECC71",
+      "yellow": "#FFF1A8",
+      "shadow": "0 22px 60px rgba(25, 20, 10, 0.10)",
+      "radiusLarge": 28,
+      "radiusMedium": 20,
+      "radiusSmall": 12
+    }
+  },
+  "defaultProfile": {
+    "id": "veer-vink",
+    "name": "Veer Vink",
+    "avatarType": "uploadable-placeholder",
+    "avatarUrl": "",
+    "headline": "Computer Science student building AI products that actually ship.",
+    "education": {
+      "institution": "University of Sydney",
+      "degree": "Bachelor of Computer Science",
+      "graduation": "Dec 2026",
+      "location": "Sydney, Australia"
+    },
+    "verifiedBy": "Aristotle",
+    "verificationLine": "Top skills verified by Aristotle from projects, GitHub-style evidence, and portfolio signals.",
+    "targetRole": "Software Development Engineer I",
+    "targetCompany": "IBM",
+    "availability": "Internship / Graduate roles from 2026",
+    "videoPitch": {
+      "enabled": true,
+      "thumbnailLabel": "Meet Veer.",
+      "quote": "I build AI products that actually ship.",
+      "duration": "0:42"
+    },
+    "skillTags": [
+      {
+        "label": "React",
+        "type": "frontend",
+        "confidence": 93
+      },
+      {
+        "label": "TypeScript",
+        "type": "frontend",
+        "confidence": 91
+      },
+      {
+        "label": "Python",
+        "type": "backend",
+        "confidence": 88
+      },
+      {
+        "label": "CRM",
+        "type": "product",
+        "confidence": 78
+      },
+      {
+        "label": "REST APIs",
+        "type": "backend",
+        "confidence": 84
+      },
+      {
+        "label": "SQL",
+        "type": "data",
+        "confidence": 80
+      }
+    ],
+    "metrics": [
+      {
+        "label": "Hackathons",
+        "value": "04",
+        "tone": "purple"
+      },
+      {
+        "label": "Projects",
+        "value": "07",
+        "tone": "mint"
+      },
+      {
+        "label": "Public repos",
+        "value": "12",
+        "tone": "orange"
+      },
+      {
+        "label": "Certifications",
+        "value": "03",
+        "tone": "green"
+      }
+    ],
+    "proofCards": [
+      {
+        "title": "Ingen HR",
+        "subtitle": "Proof-first hiring platform",
+        "description": "Designed a recruiter-facing platform that turns candidate work into structured proof signals.",
+        "skills": [
+          "React",
+          "TypeScript",
+          "Product Design"
+        ],
+        "evidence": "Demo UI + role-fit scoring mockup",
+        "linkLabel": "View proof"
+      },
+      {
+        "title": "Bayjah",
+        "subtitle": "3D React merchandise portfolio",
+        "description": "Built a premium portfolio/storefront with custom 3D product interaction and frontend polish.",
+        "skills": [
+          "React",
+          "Three.js",
+          "UI Engineering"
+        ],
+        "evidence": "Interactive frontend build",
+        "linkLabel": "View project"
+      },
+      {
+        "title": "Customer CRM Toolkit",
+        "subtitle": "Backend-focused workflow mock",
+        "description": "Implemented clean API-style data flows, structured customer records, and lightweight dashboard logic.",
+        "skills": [
+          "Python",
+          "SQL",
+          "APIs"
+        ],
+        "evidence": "Mock API + schema-driven UI",
+        "linkLabel": "View case study"
+      }
+    ],
+    "endorsements": [
+      {
+        "name": "John Doe",
+        "role": "Tutor, University of Sydney",
+        "quote": "Veer is a strong student, takes feedback well, and listens carefully before improving the work."
+      },
+      {
+        "name": "Maya Shah",
+        "role": "Project mentor",
+        "quote": "Clear builder energy. He can connect product requirements with working frontend execution."
+      }
+    ],
+    "insights": [
+      "1 internship offer",
+      "3 certifications",
+      "4 verified project proofs",
+      "Backend readiness: growing",
+      "Frontend readiness: strong"
+    ],
+    "recruiterChecklist": [
+      {
+        "label": "Education",
+        "status": "complete"
+      },
+      {
+        "label": "Technical skills",
+        "status": "complete"
+      },
+      {
+        "label": "Project proof",
+        "status": "complete"
+      },
+      {
+        "label": "Role fit summary",
+        "status": "generated"
+      },
+      {
+        "label": "Interview talking points",
+        "status": "generated"
+      }
+    ]
+  },
+  "promptSuggestions": [
+    {
+      "id": "ibm-sde1",
+      "label": "Customize for IBM SDE 1",
+      "prompt": "Customize my profile for the latest IBM SDE 1 opening based on what you know about me. Emphasize backend fundamentals, clean APIs, Python, SQL, React, reliability, and project proof. Keep the tone recruiter-friendly."
+    },
+    {
+      "id": "frontend-only",
+      "label": "Frontend-only version",
+      "prompt": "Update my skills and proof cards to focus only on frontend engineering. Prioritize React, TypeScript, UI systems, animation polish, accessibility, component architecture, and shipped interfaces."
+    },
+    {
+      "id": "backend-only",
+      "label": "Backend-specific version",
+      "prompt": "Update my profile to be backend-specific. Prioritize Python, SQL, REST APIs, data models, authentication, reliability, testing, and scalable service design. Reduce visual design emphasis."
+    },
+    {
+      "id": "graduate-shortlist",
+      "label": "Make me shortlist-ready",
+      "prompt": "Make this profile sharper for a graduate software engineering shortlist. Create a punchy headline, stronger proof summaries, recruiter checklist, and interview talking points."
+    }
+  ],
+  "mockTransformations": {
+    "ibm-sde1": {
+      "headline": "Software engineering candidate focused on reliable APIs, data-backed products, and clean full-stack execution.",
+      "targetCompany": "IBM",
+      "targetRole": "SDE 1 / Graduate Software Engineer",
+      "skillTags": [
+        {
+          "label": "Python",
+          "type": "backend",
+          "confidence": 92
+        },
+        {
+          "label": "SQL",
+          "type": "data",
+          "confidence": 89
+        },
+        {
+          "label": "REST APIs",
+          "type": "backend",
+          "confidence": 88
+        },
+        {
+          "label": "React",
+          "type": "frontend",
+          "confidence": 86
+        },
+        {
+          "label": "TypeScript",
+          "type": "frontend",
+          "confidence": 84
+        },
+        {
+          "label": "Testing",
+          "type": "quality",
+          "confidence": 78
+        }
+      ],
+      "roleFitSummary": "Strong fit for an SDE 1 role where IBM needs candidates who can reason clearly, build reliable software, communicate trade-offs, and show proof through shipped projects rather than resume fluff.",
+      "interviewTalkingPoints": [
+        "Explain how Ingen HR converts candidate evidence into structured proof signals.",
+        "Walk through API/data-model decisions in the CRM Toolkit project.",
+        "Show how React interfaces were built around recruiter workflows.",
+        "Discuss testing, edge cases, and reliability improvements."
+      ]
+    },
+    "frontend-only": {
+      "headline": "Frontend engineer crafting fast, premium React interfaces with clean component systems.",
+      "targetRole": "Frontend Engineer Intern / Graduate Frontend Engineer",
+      "skillTags": [
+        {
+          "label": "React",
+          "type": "frontend",
+          "confidence": 95
+        },
+        {
+          "label": "TypeScript",
+          "type": "frontend",
+          "confidence": 93
+        },
+        {
+          "label": "Component Systems",
+          "type": "frontend",
+          "confidence": 90
+        },
+        {
+          "label": "Framer Motion",
+          "type": "frontend",
+          "confidence": 86
+        },
+        {
+          "label": "Accessibility",
+          "type": "frontend",
+          "confidence": 78
+        },
+        {
+          "label": "UI Engineering",
+          "type": "frontend",
+          "confidence": 92
+        }
+      ],
+      "roleFitSummary": "Best positioned for frontend-heavy teams that care about interaction quality, component architecture, visual polish, and translating messy product ideas into usable interfaces."
+    },
+    "backend-only": {
+      "headline": "Backend-leaning software candidate focused on APIs, SQL, data models, and reliable systems.",
+      "targetRole": "Backend Engineer Intern / Graduate Software Engineer",
+      "skillTags": [
+        {
+          "label": "Python",
+          "type": "backend",
+          "confidence": 92
+        },
+        {
+          "label": "SQL",
+          "type": "data",
+          "confidence": 90
+        },
+        {
+          "label": "REST APIs",
+          "type": "backend",
+          "confidence": 88
+        },
+        {
+          "label": "Data Models",
+          "type": "backend",
+          "confidence": 85
+        },
+        {
+          "label": "Testing",
+          "type": "quality",
+          "confidence": 80
+        },
+        {
+          "label": "Auth Basics",
+          "type": "backend",
+          "confidence": 74
+        }
+      ],
+      "roleFitSummary": "Backend-focused version highlights service logic, data structures, schema thinking, and reliability while keeping frontend work as supporting proof rather than the main identity."
+    },
+    "graduate-shortlist": {
+      "headline": "Graduate software engineer with shipped AI product proof, strong React/Python foundations, and recruiter-ready project evidence.",
+      "targetRole": "Graduate Software Engineer",
+      "roleFitSummary": "Shortlist-ready profile built around practical proof: shipped interfaces, structured engineering thinking, clear communication, and enough backend/data depth to contribute across a product team.",
+      "interviewTalkingPoints": [
+        "What problem each project solved.",
+        "What technical trade-off was made.",
+        "What changed after feedback.",
+        "What would be improved in production."
+      ]
+    }
+  },
+  "animationStates": [
+    {
+      "step": 1,
+      "label": "Reading profile context",
+      "durationMs": 700
+    },
+    {
+      "step": 2,
+      "label": "Extracting role signals",
+      "durationMs": 850
+    },
+    {
+      "step": 3,
+      "label": "Rewriting headline and skills",
+      "durationMs": 1000
+    },
+    {
+      "step": 4,
+      "label": "Updating proof cards",
+      "durationMs": 900
+    },
+    {
+      "step": 5,
+      "label": "Final recruiter polish",
+      "durationMs": 650
+    }
+  ],
+  "uploadMock": {
+    "acceptedTypes": [
+      "image/png",
+      "image/jpeg",
+      "image/webp"
+    ],
+    "behaviour": "Use URL.createObjectURL locally only. No upload API.",
+    "emptyStateCopy": "Upload profile photo"
+  }
+}

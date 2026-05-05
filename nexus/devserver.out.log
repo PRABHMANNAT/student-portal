@@ -1,0 +1,4 @@
+
+> nexus@1.0.0 dev
+> concurrently "npm run server" "npm run client"
+

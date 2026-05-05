@@ -1,52 +1,45 @@
 :root {
-  /* === BACKGROUNDS === */
-  --bg:           #f7f6f3;   /* warm off-white page */
-  --bg-1:         #ffffff;   /* card & panel */
-  --bg-2:         #f7f6f3;
+  /* Colors */
+  --bg-page:        #F7F2EA;
+  --bg-surface:     #FFFDF8;
+  --bg-elevated:    #FBF7EE;
+  --border-soft:    #DED4C7;
+  --border-hairline:#EDE6DA;
 
-  /* === TEXT === */
-  --text-1:       #0a0a0a;   /* primary headings */
-  --text-2:       #888888;   /* secondary labels */
-  --text-3:       #999999;   /* placeholders */
+  --text-primary:   #2A2520;
+  --text-secondary: #6B5F52;
+  --text-muted:     #8A8177;
 
-  /* === BORDERS === */
-  --border:       #eeeeea;
-  --border-input: #e8e8e4;
+  --accent-orange:  #FF6A00;
+  --accent-orange-hover: #E85F00;
+  --accent-teal:    #6FD3C7;
+  --accent-teal-soft: #DFF5F1;
+  --accent-purple:  #7C6CC6;
+  --accent-amber:   #E8A24A;
 
-  /* === BRAND === */
-  --teal:         #00b4a0;
-  --teal-dim:     rgba(0,180,160,0.08);
-  --teal-soft:    #e8faf7;
+  /* Spacing */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 20px;
+  --s6: 24px;
+  --s7: 28px;
+  --s8: 32px;
+  --s10: 40px;
+  --s12: 48px;
+  --s16: 64px;
 
-  /* === SEMANTIC === */
-  --orange:       #f59340;
-  --orange-soft:  #fceee4;
-  --purple:       #8b7fd4;
-  --red:          #e05555;
-  --muted-bg:     #ecece7;
-  --charcoal:     #1a1a1a;
-  --mid:          #333333;
-
-  /* === TYPOGRAPHY === */
-  --font-display: 'Bebas Neue', sans-serif;
-  --font-ui:      'Syne', sans-serif;
-  --font-mono:    'DM Mono', monospace;
-
-  /* === SPACING (4px base) === */
-  --s1: 4px;   --s2: 8px;   --s3: 12px;  --s4: 16px;
-  --s5: 20px;  --s6: 24px;  --s7: 28px;  --s8: 32px;
-  --s10: 40px; --s12: 48px;
-
-  /* === RADIUS === */
-  --r-sm:   8px;
-  --r-md:   14px;
-  --r-lg:   20px;
+  /* Radii */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-2xl: 40px;
   --r-full: 9999px;
 
-  /* === SHADOWS === */
-  --shadow-card: 
-    rgba(0,0,0,0.06) 0px 2px 8px 0px,
-    rgba(0,0,0,0.08) 0px 16px 48px 0px;
-  --shadow-sm: rgba(0,0,0,0.06) 0px 1px 4px 0px;
+  /* Shadows */
+  --shadow-sm: 0 1px 4px rgba(10,10,10,0.06);
+  --shadow-card: 0 14px 34px rgba(10,10,10,0.06), inset 0 1px 0 rgba(255,255,255,0.7);
+  --shadow-nav: 0 25px 50px -12px rgba(0,0,0,0.18);
 }
-

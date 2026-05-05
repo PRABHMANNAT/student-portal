@@ -1,5 +1,6 @@
 import { layoutRoadmap } from './layoutRoadmap.js';
 import { generateRoadmapViaLLM } from './openaiClient.js';
+export { detectRoadmapFromPrompt } from '../data/prebuiltRoadmaps.js';
 
 const TEMPLATE_CAREERS = [
   'Full Stack Developer',

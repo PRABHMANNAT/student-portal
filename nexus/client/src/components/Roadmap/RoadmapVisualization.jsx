@@ -296,6 +296,7 @@ export default function RoadmapVisualization({
   generationKey = 0,
   onBuildStatus,
   onSave,
+  onQuickStart,
   saving = false,
   saved = false,
   isGenerating = false
@@ -314,8 +315,10 @@ export default function RoadmapVisualization({
       animationKey={generationKey}
       onBuildStatus={onBuildStatus}
       onSave={onSave}
+      onQuickStart={onQuickStart}
       saving={saving}
       saved={saved}
+      isGenerating={isGenerating}
     />
   );
 }

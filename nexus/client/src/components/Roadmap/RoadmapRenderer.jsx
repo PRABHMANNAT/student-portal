@@ -1,26 +1,19 @@
 import * as Dialog from '@radix-ui/react-dialog';
-import { motion } from 'framer-motion';
-import { ArrowUpRight, Bookmark, CalendarDays, Check, CheckCircle2, Circle, CircleDot, Clock, Target, X } from 'lucide-react';
+import { ArrowUpRight, CalendarDays, Check, CheckCircle2, Circle, CircleDot, Clock, Maximize2, Minimize2, Target, X, Send, Bot, Sparkles } from 'lucide-react';
+/* Note: Check is used in RoadmapContextPanel rationale list */
 import ReactMarkdown from 'react-markdown';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import FlowCanvas from './FlowCanvas';
+import SourcesPanel from './SourcesPanel';
 
 const STATES = ['pending', 'in_progress', 'completed', 'skipped'];
-const ROADMAP_CANVAS_WIDTH = 1480;
 const MARKDOWN_FILES = import.meta.glob('../../data/roadmaps/*/content/*.md', {
   query: '?raw',
   import: 'default',
   eager: true
 });
 
-const styleClass = {
-  primary: 'is-primary',
-  alternative: 'is-alternative',
-  optional: 'is-optional',
-  checkpoint: 'is-checkpoint',
-  recommended: 'is-recommended',
-  label: 'is-label',
-  header: 'is-label'
-};
 
 function progressKey(roadmapId) {
   return `roadmap_progress_${roadmapId || 'default'}`;
@@ -43,52 +36,6 @@ function cycleProgressValue(value = 'pending') {
   return STATES[(Math.max(index, 0) + 1) % STATES.length];
 }
 
-function getHandlePoint(node, handle = 'bottom') {
-  const cx = node.x + node.width / 2;
-  const cy = node.y + node.height / 2;
-
-  switch (handle) {
-    case 'top':
-      return { x: cx, y: node.y };
-    case 'bottom':
-      return { x: cx, y: node.y + node.height };
-    case 'left':
-      return { x: node.x, y: cy };
-    case 'right':
-      return { x: node.x + node.width, y: cy };
-    default:
-      return { x: cx, y: cy };
-  }
-}
-
-export function generateElbowPath(source, target, sourceHandle = 'bottom', targetHandle = 'top') {
-  const sp = getHandlePoint(source, sourceHandle);
-  const tp = getHandlePoint(target, targetHandle);
-
-  if (sourceHandle === 'bottom' && targetHandle === 'top') {
-    return `M ${sp.x},${sp.y} L ${tp.x},${tp.y}`;
-  }
-
-  if (sourceHandle === 'right' && targetHandle === 'left') {
-    if (Math.abs(sp.y - tp.y) < 3) {
-      return `M ${sp.x},${sp.y} L ${tp.x},${tp.y}`;
-    }
-
-    const exitX = sp.x + 30;
-    return `M ${sp.x},${sp.y} L ${exitX},${sp.y} L ${exitX},${tp.y} L ${tp.x},${tp.y}`;
-  }
-
-  if (sourceHandle === 'left' && targetHandle === 'right') {
-    if (Math.abs(sp.y - tp.y) < 3) {
-      return `M ${sp.x},${sp.y} L ${tp.x},${tp.y}`;
-    }
-
-    const exitX = sp.x - 30;
-    return `M ${sp.x},${sp.y} L ${exitX},${sp.y} L ${exitX},${tp.y} L ${tp.x},${tp.y}`;
-  }
-
-  return `M ${sp.x},${sp.y} L ${tp.x},${tp.y}`;
-}
 
 function nodeSlug(nodeId = '') {
   return nodeId.replace(/-[a-z0-9]{4,}$/i, '');
@@ -145,60 +92,6 @@ function useRoadmapProgress(roadmapId) {
   return [progress, cycle];
 }
 
-function StatusDot({ progress = 'pending', onClick }) {
-  return (
-    <span
-      role="button"
-      tabIndex={0}
-      className={`roadmap-svg-status-dot is-${progress}`}
-      onClick={onClick}
-      onKeyDown={(event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          onClick(event);
-        }
-      }}
-    >
-      {progress === 'completed' ? <Check size={10} strokeWidth={4} /> : null}
-      {progress === 'in_progress' ? <i /> : null}
-    </span>
-  );
-}
-
-function RoadmapNode({ node, progress, onClick, onCycleProgress }) {
-  if (node.type === 'label' || node.type === 'section_header') {
-    return <div className="roadmap-svg-label">{node.title}</div>;
-  }
-
-  return (
-    <div className="roadmap-svg-node-wrapper">
-      <button
-        type="button"
-        className={`roadmap-svg-node ${styleClass[node.style] || 'is-primary'}`}
-        onClick={onClick}
-      >
-        {node.type === 'topic' || node.type === 'subtopic' || node.type === 'checkpoint' ? (
-          <StatusDot
-            progress={progress}
-            onClick={(event) => {
-              event.stopPropagation();
-              onCycleProgress(node.id);
-            }}
-          />
-        ) : null}
-        <span>{node.title}</span>
-      </button>
-    </div>
-  );
-}
-
-function RoadmapNote({ node }) {
-  return (
-    <div className="roadmap-svg-note">
-      {node.personalizedNote}
-    </div>
-  );
-}
 
 function ResourceBadge({ type = 'article' }) {
   return <span className={`roadmap-svg-resource-badge is-${type}`}>{type}</span>;
@@ -303,109 +196,116 @@ function CheckpointIcon({ state }) {
   return <Circle size={15} />;
 }
 
-function wait(ms) {
-  return new Promise((resolve) => {
-    window.setTimeout(resolve, ms);
-  });
+// ── Projects Tab (Mock Content) ──────────────────────────────────────────────
+
+function ProjectsTab() {
+  const [tasks, setTasks] = useState([
+    { id: 1, label: 'Set up project scaffolding & routing', done: false },
+    { id: 2, label: 'Build transaction input form with validation', done: false },
+    { id: 3, label: 'Create dashboard with charts (Chart.js / Recharts)', done: false },
+    { id: 4, label: 'Add category filtering & monthly breakdown', done: false },
+  ]);
+
+  const toggle = (id) => setTasks((prev) => prev.map((t) => t.id === id ? { ...t, done: !t.done } : t));
+
+  return (
+    <div className="roadmap-tab-content" draggable={false}>
+      <div className="roadmap-project-card" draggable={false}>
+        <div className="roadmap-project-header">
+          <div>
+            <span className="roadmap-project-badge is-intermediate">Intermediate</span>
+            <span className="roadmap-project-time">~12 hours</span>
+          </div>
+        </div>
+        <h3 className="roadmap-project-title">Build a Personal Finance Tracker</h3>
+        <p className="roadmap-project-desc">
+          Create a full-stack personal finance tracker with expense categorisation,
+          budget goals, interactive charts, and monthly reporting. Uses React, Node.js,
+          and a database of your choice.
+        </p>
+        <div className="roadmap-project-milestones">
+          <h4>Milestones</h4>
+          {tasks.map((task) => (
+            <label key={task.id} className="roadmap-project-task">
+              <input
+                type="checkbox"
+                checked={task.done}
+                onChange={() => toggle(task.id)}
+              />
+              <span className={task.done ? 'is-done' : ''}>{task.label}</span>
+            </label>
+          ))}
+        </div>
+        <button type="button" className="roadmap-project-view-btn">
+          View Project <ArrowUpRight size={15} />
+        </button>
+      </div>
+    </div>
+  );
 }
 
-function buildRevealSequence(roadmap, nodeById, edgeByTarget) {
-  if (!Array.isArray(roadmap.sections) || !roadmap.sections.length) {
-    return [...roadmap.nodes]
-      .sort((a, b) => a.y - b.y || a.x - b.x)
-      .map((node) => ({ type: 'node', node, edges: edgeByTarget.get(node.id) || [] }));
-  }
+// ── AI Tutor Tab (Mock Content) ──────────────────────────────────────────────
 
-  const steps = [];
+function AITutorTab() {
+  const chips = ['Explain this concept', 'Give me a quiz', 'Show me an example', 'Summarize key points'];
 
-  roadmap.sections.forEach((section) => {
-    const header = nodeById.get(`header-${section.id}`);
-    if (header) {
-      steps.push({
-        type: 'section',
-        section,
-        node: header,
-        message: `Mapping out ${section.title.toLowerCase()}...`
-      });
-    }
+  return (
+    <div className="roadmap-tab-content" draggable={false}>
+      <div className="roadmap-tutor-card" draggable={false}>
+        <div className="roadmap-tutor-header">
+          <div className="roadmap-tutor-avatar">
+            <Bot size={22} />
+          </div>
+          <div>
+            <h3>AI Tutor</h3>
+            <span className="roadmap-tutor-status">Online · Ready to help</span>
+          </div>
+        </div>
 
-    (section.spine || []).forEach((spineNode) => {
-      const node = nodeById.get(spineNode.id);
-      if (node) {
-        steps.push({
-          type: 'spine',
-          section,
-          node,
-          edges: edgeByTarget.get(node.id) || []
-        });
-      }
-    });
+        <div className="roadmap-tutor-chat">
+          <div className="roadmap-tutor-bubble is-ai">
+            <Sparkles size={14} className="roadmap-tutor-sparkle" />
+            <p>Hi! I'm your AI tutor. Ask me anything about this roadmap topic — I can explain concepts, generate quizzes, or walk you through examples.</p>
+          </div>
+        </div>
 
-    (section.spine || []).forEach((spineNode) => {
-      const branches = (spineNode.branches || [])
-        .map((branch) => nodeById.get(branch.id))
-        .filter(Boolean);
+        <div className="roadmap-tutor-chips">
+          {chips.map((chip) => (
+            <button key={chip} type="button" className="roadmap-tutor-chip">
+              {chip}
+            </button>
+          ))}
+        </div>
 
-      if (branches.length) {
-        steps.push({
-          type: 'branch-message',
-          section,
-          sourceTitle: spineNode.title,
-          branchCount: branches.length,
-          message: `Adding ${branches.length} sub-topics for ${spineNode.title}...`
-        });
-      }
-
-      branches.forEach((node) => {
-        steps.push({
-          type: 'branch',
-          section,
-          node,
-          edges: edgeByTarget.get(node.id) || []
-        });
-      });
-    });
-
-    if (section.checkpoint) {
-      const checkpoint = nodeById.get(section.checkpoint.id);
-      if (checkpoint) {
-        steps.push({
-          type: 'checkpoint',
-          section,
-          node: checkpoint,
-          edges: edgeByTarget.get(checkpoint.id) || [],
-          message: `${section.title} checkpoint locked in`
-        });
-      }
-    }
-  });
-
-  const seenIds = new Set(steps.map((step) => step.node?.id).filter(Boolean));
-  roadmap.nodes
-    .filter((node) => !seenIds.has(node.id))
-    .sort((a, b) => a.y - b.y || a.x - b.x)
-    .forEach((node) => {
-      steps.push({ type: 'node', node, edges: edgeByTarget.get(node.id) || [] });
-    });
-
-  return steps;
+        <div className="roadmap-tutor-input">
+          <input type="text" placeholder="Ask me anything…" disabled />
+          <button type="button" className="roadmap-tutor-send" disabled aria-label="Send message">
+            <Send size={16} />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-function RoadmapContextPanel({
+// ── Info Cards (moved below the roadmap) ─────────────────────────────────────
+
+function InfoCardsRow({
   roadmap,
   profile,
   totalTopics,
   firstUncompletedNode,
   checkpointProgress,
+  rationale,
   onOpenNode,
   onScrollToNode
 }) {
-  const rationale = (roadmap.personalizationRationale || []).slice(0, 4);
   const milestoneHours = firstUncompletedNode?.estimatedHours || firstUncompletedNode?.hours;
 
   return (
-    <aside className="roadmap-context-panel">
-      <section className="roadmap-context-card is-summary">
+    <div className="roadmap-info-cards-row" draggable={false}>
+      {/* Your Path */}
+      <section className="roadmap-context-card is-summary" draggable={false}>
         <p className="roadmap-context-eyebrow">Your Path</p>
         <h2>{roadmap.title}</h2>
         <div className="roadmap-context-stats">
@@ -416,7 +316,8 @@ function RoadmapContextPanel({
         <p className="roadmap-context-summary">{formatProfileSummary(profile, roadmap)}</p>
       </section>
 
-      <section className="roadmap-context-card">
+      {/* Why This Works */}
+      <section className="roadmap-context-card" draggable={false}>
         <p className="roadmap-context-eyebrow">Why This Works For You</p>
         <ul className="roadmap-context-rationale">
           {(rationale.length ? rationale : ['Personalized from your profile, target role, timeline, and saved skill history.']).map((item) => (
@@ -425,7 +326,8 @@ function RoadmapContextPanel({
         </ul>
       </section>
 
-      <section className="roadmap-context-card">
+      {/* Start Here */}
+      <section className="roadmap-context-card" draggable={false}>
         <p className="roadmap-context-eyebrow">Start Here</p>
         <h3>{firstUncompletedNode?.title || 'Roadmap complete'}</h3>
         <div className="roadmap-context-meta">
@@ -441,27 +343,10 @@ function RoadmapContextPanel({
           Open <ArrowUpRight size={15} />
         </button>
       </section>
-
-      <section className="roadmap-context-card">
-        <p className="roadmap-context-eyebrow">Checkpoints</p>
-        <div className="roadmap-context-checkpoints">
-          {checkpointProgress.map((checkpoint) => (
-            <button
-              key={checkpoint.id}
-              type="button"
-              className={`roadmap-context-checkpoint is-${checkpoint.state}`}
-              onClick={() => onScrollToNode(checkpoint.id)}
-            >
-              <CheckpointIcon state={checkpoint.state} />
-              <span>{checkpoint.title}</span>
-              <small>{checkpoint.completedCount}/{checkpoint.totalTopics} complete</small>
-            </button>
-          ))}
-        </div>
-      </section>
-    </aside>
+    </div>
   );
 }
+
 
 export default function RoadmapRenderer({
   roadmapData,
@@ -470,20 +355,21 @@ export default function RoadmapRenderer({
   animationKey = 0,
   onBuildStatus,
   onSave,
+  onQuickStart,
   saving = false,
-  saved = false
+  saved = false,
+  isGenerating = false
 }) {
   const roadmap = roadmapData;
   const scrollRef = useRef(null);
-  const svgRef = useRef(null);
   const [selectedNode, setSelectedNode] = useState(null);
   const [justSaved, setJustSaved] = useState(false);
   const [progress, cycleProgress] = useRoadmapProgress(roadmap.id);
-  const [animationDone, setAnimationDone] = useState(animationKey <= 0);
-  const [showNotes, setShowNotes] = useState(animationKey <= 0);
-  const [revealedNodeIds, setRevealedNodeIds] = useState(() => new Set(animationKey <= 0 ? roadmap.nodes.map((node) => node.id) : []));
-  const [revealedEdgeIds, setRevealedEdgeIds] = useState(() => new Set(animationKey <= 0 ? roadmap.edges.map((edge) => edge.id) : []));
   const onBuildStatusRef = useRef(onBuildStatus);
+  const [activeTab, setActiveTab] = useState('roadmap');
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [sourcesOpen, setSourcesOpen] = useState(false);
+  const [sourcesTopic, setSourcesTopic] = useState('');
 
   useEffect(() => {
     onBuildStatusRef.current = onBuildStatus;
@@ -496,47 +382,54 @@ export default function RoadmapRenderer({
     return () => window.clearTimeout(timeout);
   }, [saved]);
 
-  const canvasHeight = useMemo(() => {
-    if (!roadmap.nodes.length) return 800;
-    const maxBottom = Math.max(...roadmap.nodes.map((node) => node.y + node.height + 60));
-    return Math.max(maxBottom, 800);
+  // Signal the chat panel when roadmap data is ready
+  useEffect(() => {
+    if (!animationKey) return undefined;
+    onBuildStatusRef.current?.({ message: `Rendering ${roadmap.title} roadmap…` });
+    const timer = window.setTimeout(() => {
+      onBuildStatusRef.current?.({
+        message: `Done. ${roadmap.totalHours || 0} hours of focused work to ${roadmap.title}. Click any topic to dive in.`,
+        done: true,
+      });
+    }, 600);
+    return () => window.clearTimeout(timer);
+  }, [animationKey, roadmap.title, roadmap.totalHours]);
+
+  // Wire quick-start events from the empty canvas state
+  useEffect(() => {
+    if (!onQuickStart) return;
+    const handler = (e) => onQuickStart(e.detail?.prompt);
+    window.addEventListener('nexus:quick-start', handler);
+    return () => window.removeEventListener('nexus:quick-start', handler);
+  }, [onQuickStart]);
+
+  // Escape exits fullscreen
+  useEffect(() => {
+    if (!isFullscreen) return;
+    const handler = (e) => { if (e.key === 'Escape') setIsFullscreen(false); };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [isFullscreen]);
+
+  // Map a ReactFlow node click back to the full roadmap node — open sources panel
+  const handleFlowNodeClick = useCallback((flowNode) => {
+    const roadmapNode = roadmap.nodes.find((n) => n.id === flowNode.id);
+    if (roadmapNode) {
+      setSourcesTopic(roadmapNode.title || flowNode.data?.label || flowNode.id);
+      setSourcesOpen(true);
+    }
   }, [roadmap.nodes]);
 
-  const nodeById = useMemo(
-    () => new Map(roadmap.nodes.map((node) => [node.id, node])),
-    [roadmap.nodes]
-  );
-  const validEdges = useMemo(
-    () =>
-      roadmap.edges.filter((edge) => {
-        const source = nodeById.get(edge.source);
-        const target = nodeById.get(edge.target);
-
-        if (!source || !target) {
-          console.warn(`Skipping edge ${edge.id}: missing node`, edge);
-          return false;
-        }
-
-        return true;
-      }),
-    [nodeById, roadmap.edges]
-  );
   const trackableNodes = roadmap.nodes.filter((node) => node.type === 'topic' || node.type === 'subtopic');
   const completedCount = trackableNodes.filter((node) => progress[node.id] === 'completed').length;
   const progressPercent = trackableNodes.length ? Math.round((completedCount / trackableNodes.length) * 100) : 0;
   const selectedProgress = selectedNode ? progress[selectedNode.id] || 'pending' : 'pending';
   const firstUncompletedNode = trackableNodes.find((node) => !['completed', 'skipped'].includes(progress[node.id])) || null;
   const updatedLabel = formatUpdated(generatedAt || roadmap.updatedAt || roadmap.generatedAt);
-  const scrollToNode = (nodeId) => {
-    const node = nodeById.get(nodeId);
-    if (!node || !scrollRef.current || !svgRef.current) return;
 
-    const scale = svgRef.current.clientHeight / canvasHeight || 1;
-    scrollRef.current.scrollTo({
-      top: Math.max(0, node.y * scale - 72),
-      behavior: 'smooth'
-    });
-  };
+  // With React Flow the canvas handles its own viewport; this is a no-op kept for context panel wiring
+  const scrollToNode = useCallback((_nodeId) => {}, []);
+
   const checkpointProgress = useMemo(() => {
     if (Array.isArray(roadmap.sections) && roadmap.sections.length) {
       const items = roadmap.sections.map((section) => {
@@ -571,93 +464,42 @@ export default function RoadmapRenderer({
       state: completionState(completedCount, trackableNodes.length, index === 0)
     }));
   }, [completedCount, progress, roadmap.nodes, roadmap.sections, trackableNodes.length]);
+
+  const rationale = (roadmap.personalizationRationale || []).slice(0, 4);
+
   const progressBreakdown = checkpointProgress
     .map((item) => `${item.title}: ${item.completedCount}/${item.totalTopics}`)
     .join('\n');
-  const edgeByTarget = useMemo(() => {
-    const map = new Map();
-    validEdges.forEach((edge) => {
-      map.set(edge.target, [...(map.get(edge.target) || []), edge]);
-    });
-    return map;
-  }, [validEdges]);
-  const revealAll = () => {
-    setRevealedNodeIds(new Set(roadmap.nodes.map((node) => node.id)));
-    setRevealedEdgeIds(new Set(validEdges.map((edge) => edge.id)));
-    setShowNotes(true);
-    setAnimationDone(true);
-    onBuildStatusRef.current?.({
-      message: `Done. ${roadmap.totalHours || 0} hours of focused work to ${roadmap.title}. Click any topic to dive in.`,
-      done: true
-    });
-  };
 
-  useEffect(() => {
-    let cancelled = false;
+  const TABS = [
+    { id: 'roadmap', label: 'Roadmap' },
+    { id: 'projects', label: 'Projects' },
+    { id: 'ai-tutor', label: 'AI Tutor' },
+  ];
 
-    if (!animationKey) {
-      revealAll();
-      return () => {
-        cancelled = true;
-      };
-    }
+  // ── Fullscreen canvas ──────────────────────────────────────────────────────
 
-    setAnimationDone(false);
-    setShowNotes(false);
-    setRevealedNodeIds(new Set());
-    setRevealedEdgeIds(new Set());
-    onBuildStatusRef.current?.({ message: `Building your ${roadmap.title} path...` });
-
-    const sequence = buildRevealSequence(roadmap, nodeById, edgeByTarget);
-    const totalDelay = Math.min(65, Math.max(28, Math.floor(2500 / Math.max(sequence.length, 1))));
-
-    const run = async () => {
-      for (const step of sequence) {
-        if (cancelled) return;
-
-        if (step.message) {
-          onBuildStatusRef.current?.({ message: step.message });
-        }
-
-        if (step.node) {
-          setRevealedNodeIds((current) => new Set([...current, step.node.id]));
-        }
-
-        if (step.edges?.length) {
-          await wait(Math.min(25, totalDelay));
-          if (cancelled) return;
-          setRevealedEdgeIds((current) => new Set([...current, ...step.edges.map((edge) => edge.id)]));
-        }
-
-        if (step.type === 'checkpoint') {
-          await wait(100);
-        } else if (step.type === 'branch-message') {
-          await wait(20);
-        } else {
-          await wait(totalDelay);
-        }
-      }
-
-      if (cancelled) return;
-      onBuildStatusRef.current?.({ message: `Tailoring this for your ${profile?.major || profile?.degree || 'student'} background${profile?.university ? ` at ${profile.university}` : ''}...` });
-      await wait(250);
-      if (cancelled) return;
-      setShowNotes(true);
-      await wait(180);
-      if (cancelled) return;
-      setAnimationDone(true);
-      onBuildStatusRef.current?.({
-        message: `Done. ${roadmap.totalHours || 0} hours of focused work to ${roadmap.title}. Click any topic to dive in.`,
-        done: true
-      });
-    };
-
-    run();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [animationKey, edgeByTarget, nodeById, profile?.degree, profile?.major, profile?.university, roadmap, validEdges]);
+  const canvasContent = (
+    <section className={`roadmap-svg-canvas-panel is-flow-mode ${isFullscreen ? 'is-fullscreen' : ''}`}>
+      <button
+        type="button"
+        className="roadmap-fullscreen-toggle"
+        onClick={() => setIsFullscreen((v) => !v)}
+        aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
+      >
+        {isFullscreen ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
+      </button>
+      <FlowCanvas
+        roadmapData={roadmap}
+        animationKey={animationKey}
+        isGenerating={isGenerating}
+        onSave={onSave}
+        onNodeClick={handleFlowNodeClick}
+        saving={saving}
+        saved={justSaved}
+      />
+    </section>
+  );
 
   return (
     <div className="roadmap-svg-shell">
@@ -666,9 +508,16 @@ export default function RoadmapRenderer({
           <h1>{roadmap.title}</h1>
           <p>{roadmap.subtitle}</p>
           <nav>
-            <button type="button" className="is-active">Roadmap</button>
-            <button type="button">Projects</button>
-            <button type="button">AI Tutor</button>
+            {TABS.map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                className={activeTab === tab.id ? 'is-active' : ''}
+                onClick={() => setActiveTab(tab.id)}
+              >
+                {tab.label}
+              </button>
+            ))}
           </nav>
         </div>
         <aside className="roadmap-svg-progress" title={progressBreakdown || undefined}>
@@ -676,126 +525,67 @@ export default function RoadmapRenderer({
           <div><span style={{ width: `${progressPercent}%` }} /></div>
           <small>{roadmap.totalHours || 0} hours · {roadmap.duration || 'Self paced'}</small>
           <small>{updatedLabel}</small>
-          {!animationDone ? (
-            <button type="button" className="roadmap-skip-animation" onClick={revealAll}>
-              Skip animation
-            </button>
-          ) : null}
         </aside>
       </header>
 
-      <main className="roadmap-svg-scroll" ref={scrollRef}>
-        <div className="roadmap-svg-body">
-          <RoadmapContextPanel
-            roadmap={roadmap}
-            profile={profile}
-            totalTopics={trackableNodes.length}
-            firstUncompletedNode={firstUncompletedNode}
-            checkpointProgress={checkpointProgress}
-            onOpenNode={setSelectedNode}
-            onScrollToNode={scrollToNode}
-          />
-          <section className="roadmap-svg-canvas-panel">
-            <div className="roadmap-svg-canvas roadmap-canvas-container">
-              <svg
-                ref={svgRef}
-                viewBox={`0 0 ${ROADMAP_CANVAS_WIDTH} ${canvasHeight}`}
-                preserveAspectRatio="xMidYMin meet"
-                width="100%"
-                height="auto"
-                style={{ display: 'block', maxWidth: '100%' }}
+      {/* ── Tab content ─────────────────────────────────────────────────────── */}
+      {activeTab === 'roadmap' && (
+        <main className="roadmap-svg-scroll is-flow-mode" ref={scrollRef}>
+          {/* Fullscreen overlay */}
+          <AnimatePresence>
+            {isFullscreen && (
+              <motion.div
+                className="roadmap-fullscreen-overlay"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25 }}
               >
-                <g className="roadmap-svg-edges">
-                  {validEdges.map((edge) => {
-                    const source = nodeById.get(edge.source);
-                    const target = nodeById.get(edge.target);
-                    const isRevealed = animationDone || revealedEdgeIds.has(edge.id);
-                    return (
-                      <motion.path
-                        key={edge.id}
-                        d={generateElbowPath(source, target, edge.sourceHandle, edge.targetHandle)}
-                        stroke={edge.type === 'dashed' ? '#3B82F6' : '#2563EB'}
-                        strokeWidth="2.5"
-                        strokeDasharray={edge.type === 'dashed' ? '6 4' : undefined}
-                        fill="none"
-                        initial={false}
-                        animate={{
-                          pathLength: isRevealed ? 1 : 0,
-                          opacity: isRevealed ? 1 : 0
-                        }}
-                        transition={{ duration: edge.type === 'dashed' ? 0.28 : 0.4, ease: 'easeInOut' }}
-                      />
-                    );
-                  })}
-                </g>
-                <g className="roadmap-svg-nodes">
-                  {roadmap.nodes.map((node) => {
-                    const isRevealed = animationDone || revealedNodeIds.has(node.id);
-                    return (
-                      <foreignObject
-                        key={node.id}
-                        x={node.x}
-                        y={node.y}
-                        width={node.width + 20}
-                        height={node.height}
-                      >
-                        <motion.div
-                          className="roadmap-svg-node-motion"
-                          initial={false}
-                          animate={{
-                            opacity: isRevealed ? 1 : 0,
-                            y: isRevealed ? 0 : -10,
-                            scale: isRevealed ? 1 : 0.95
-                          }}
-                          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                        >
-                          <RoadmapNode
-                            node={node}
-                            progress={progress[node.id] || 'pending'}
-                            onClick={() => node.type !== 'label' && node.type !== 'section_header' && setSelectedNode(node)}
-                            onCycleProgress={cycleProgress}
-                          />
-                        </motion.div>
-                      </foreignObject>
-                    );
-                  })}
-                </g>
-                <g className="roadmap-svg-notes">
-                  {roadmap.nodes.filter((node) => node.personalizedNote).map((node) => {
-                    const isRevealed = (animationDone || showNotes) && (animationDone || revealedNodeIds.has(node.id));
-                    return (
-                      <foreignObject
-                        key={`note-${node.id}`}
-                        x={node.x}
-                        y={node.y + node.height + 4}
-                        width={node.width}
-                        height={40}
-                        style={{ overflow: 'visible', pointerEvents: 'none' }}
-                      >
-                        <motion.div
-                          initial={false}
-                          animate={{
-                            opacity: isRevealed ? 1 : 0,
-                            y: isRevealed ? 0 : -4
-                          }}
-                          transition={{ duration: 0.25, ease: 'easeOut' }}
-                        >
-                          <RoadmapNote node={node} />
-                        </motion.div>
-                      </foreignObject>
-                    );
-                  })}
-                </g>
-              </svg>
-            </div>
-          </section>
-        </div>
-      </main>
+                {canvasContent}
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-      <button type="button" className="roadmap-svg-save" onClick={onSave} disabled={saving}>
-        <Bookmark size={16} fill="currentColor" />
-        {justSaved ? 'Saved' : saving ? 'Saving...' : 'Save'}
-      </button>
+          <div className="roadmap-svg-body is-flow-mode is-restructured">
+            {/* Canvas takes full width */}
+            {!isFullscreen && canvasContent}
+
+            {/* Info cards row below the roadmap */}
+            <InfoCardsRow
+              roadmap={roadmap}
+              profile={profile}
+              totalTopics={trackableNodes.length}
+              firstUncompletedNode={firstUncompletedNode}
+              checkpointProgress={checkpointProgress}
+              rationale={rationale}
+              onOpenNode={setSelectedNode}
+              onScrollToNode={scrollToNode}
+            />
+
+            {/* Checkpoints */}
+            <section className="roadmap-context-card roadmap-checkpoints-card" draggable={false}>
+              <p className="roadmap-context-eyebrow">Checkpoints</p>
+              <div className="roadmap-context-checkpoints">
+                {checkpointProgress.map((checkpoint) => (
+                  <button
+                    key={checkpoint.id}
+                    type="button"
+                    className={`roadmap-context-checkpoint is-${checkpoint.state}`}
+                    onClick={() => scrollToNode(checkpoint.id)}
+                  >
+                    <CheckpointIcon state={checkpoint.state} />
+                    <span>{checkpoint.title}</span>
+                    <small>{checkpoint.completedCount}/{checkpoint.totalTopics} complete</small>
+                  </button>
+                ))}
+              </div>
+            </section>
+          </div>
+        </main>
+      )}
+
+      {activeTab === 'projects' && <ProjectsTab />}
+      {activeTab === 'ai-tutor' && <AITutorTab />}
 
       <NodeDrawer
         roadmap={roadmap}
@@ -804,6 +594,13 @@ export default function RoadmapRenderer({
         onOpenChange={(open) => !open && setSelectedNode(null)}
         progress={selectedProgress}
         onCycleProgress={cycleProgress}
+      />
+
+      {/* Sources side panel */}
+      <SourcesPanel
+        topicName={sourcesTopic}
+        open={sourcesOpen}
+        onClose={() => setSourcesOpen(false)}
       />
     </div>
   );

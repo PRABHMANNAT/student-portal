@@ -14,6 +14,7 @@ import { useApp } from '../../context/AppContext';
 import AgentLogo from '../AgentLogo';
 import UserAvatar from '../UserAvatar';
 import AuthDialog from './AuthDialog';
+import SideNav from './SideNav';
 
 const NAV_ITEMS = [
   {
@@ -153,36 +154,7 @@ export default function AppShell({ chat = {}, artifact = {}, artifactSidebar = n
 
   return (
     <div className={`app-shell ${hideChat ? 'is-no-chat' : ''}`}>
-      <nav className="shell-nav">
-        <div className="shell-nav-top">
-          <NavLink to="/roadmap" className="shell-logo" aria-label="Go to roadmap">
-            <img src={ingenLogo} alt="Ingen" className="shell-logo-image" />
-          </NavLink>
-
-          <span className="shell-nav-divider" aria-hidden="true" />
-
-          <div className="shell-nav-stack">
-            {NAV_ITEMS.map((item) => {
-              const Icon = item.icon;
-
-              return (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  className={({ isActive }) => `shell-nav-item ${isActive ? 'is-active' : ''}`}
-                  style={{ '--shell-agent-accent': item.accent }}
-                  aria-label={item.label}
-                >
-                  <span className="shell-nav-icon-box">
-                    <Icon size={20} strokeWidth={1.9} />
-                  </span>
-                  <span className="shell-nav-tooltip">{item.label}</span>
-                </NavLink>
-              );
-            })}
-          </div>
-        </div>
-      </nav>
+      <SideNav />
 
       <nav className="shell-mobile-tabs" aria-label="Primary mobile navigation">
         {ROUTE_NAV_ITEMS.map((item) => {

@@ -10,6 +10,7 @@ import { ProfileProvider } from './context/ProfileContext';
 import './styles/tokens.css';
 import './styles/global.css';
 import './styles/app.css';
+import './styles/profile-editor.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
