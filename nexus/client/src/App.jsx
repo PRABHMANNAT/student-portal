@@ -5,6 +5,7 @@ import ProfileEditModal from './components/Profile/ProfileEditModal';
 import CollectionsPage from './pages/CollectionsPage';
 import JobsPage from './pages/JobsPage';
 import ProfileEditorPage from './pages/ProfileEditorPage';
+import RecruitersPage from './pages/RecruitersPage';
 import RoadmapPage from './pages/RoadmapPage';
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Navigate to="/roadmap" replace />} />
+          <Route path="/recruiters" element={<RecruitersPage />} />
           <Route path="/roadmap" element={<RoadmapPage />} />
           <Route path="/jobs" element={<JobsPage />} />
           <Route path="/notes" element={<ProfileEditorPage />} />

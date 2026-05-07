@@ -1,5 +1,19 @@
 :root {
-  /* Colors */
+  /* iNGEN landing tokens */
+  --ingen-bg:        #FBF1E8;
+  --ingen-bg-alt:    #F5E6D8;
+  --ingen-orange:    #FF6B35;
+  --ingen-orange-dk: #E55525;
+  --ingen-coral:     #FF8C61;
+  --ingen-ink:       #0E0E0E;
+  --ingen-graphite:  #1A1A1A;
+  --ingen-mute:      #6B6760;
+  --ingen-line:      #E8D9C9;
+  --ingen-success:   #16A34A;
+  --ingen-warn:      #EAB308;
+  --ingen-danger:    #DC2626;
+
+  /* Existing portal tokens */
   --bg-page:        #F7F2EA;
   --bg-surface:     #FFFDF8;
   --bg-elevated:    #FBF7EE;
@@ -16,6 +30,29 @@
   --accent-teal-soft: #DFF5F1;
   --accent-purple:  #7C6CC6;
   --accent-amber:   #E8A24A;
+
+  /* Compatibility aliases used by older app CSS */
+  --bg:           var(--ingen-bg);
+  --bg-1:         #ffffff;
+  --bg-2:         var(--ingen-bg-alt);
+  --text-1:       var(--ingen-ink);
+  --text-2:       var(--ingen-mute);
+  --text-3:       #8e887f;
+  --border:       var(--ingen-line);
+  --border-input: var(--ingen-line);
+  --orange:       var(--ingen-orange);
+  --orange-soft:  #ffe6d8;
+  --purple:       #8b7fd4;
+  --red:          var(--ingen-danger);
+  --muted-bg:     #ecece7;
+  --charcoal:     var(--ingen-graphite);
+  --mid:          #333333;
+
+  /* Typography */
+  --font-display: 'Geist', system-ui, sans-serif;
+  --font-ui:      'Geist', system-ui, sans-serif;
+  --font-body:    'Geist', system-ui, sans-serif;
+  --font-mono:    'Geist Mono', ui-monospace, monospace;
 
   /* Spacing */
   --s1: 4px;

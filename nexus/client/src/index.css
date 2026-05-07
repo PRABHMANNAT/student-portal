@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --ingen-bg: #FBF1E8;
+    --ingen-bg-alt: #F5E6D8;
+    --ingen-orange: #FF6B35;
+    --ingen-orange-dk: #E55525;
+    --ingen-coral: #FF8C61;
+    --ingen-ink: #0E0E0E;
+    --ingen-graphite: #1A1A1A;
+    --ingen-mute: #6B6760;
+    --ingen-line: #E8D9C9;
+    --ingen-success: #16A34A;
+    --ingen-warn: #EAB308;
+    --ingen-danger: #DC2626;
+
+    --font-display: 'Geist', system-ui, sans-serif;
+    --font-body: 'Geist', system-ui, sans-serif;
+    --font-mono: 'Geist Mono', ui-monospace, monospace;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    text-rendering: geometricPrecision;
+  }
+
+  body {
+    min-width: 320px;
+    background: var(--ingen-bg);
+    color: var(--ingen-ink);
+    font-family: 'Geist', system-ui, sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+  }
+
+  p,
+  a,
+  button,
+  input,
+  textarea {
+    font-family: var(--font-body);
+  }
+
+  code,
+  kbd,
+  samp,
+  .mono-label {
+    font-family: var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  ::selection {
+    background: var(--ingen-orange);
+    color: white;
+  }
+}
+
+html{scroll-behavior:smooth}
+body{font-family:'Geist',system-ui,sans-serif;background:#FBF1E8;color:#0E0E0E;-webkit-font-smoothing:antialiased}
+.diamond-grid {
+  background-image:
+    linear-gradient(45deg, rgba(14,14,14,0.04) 1px, transparent 1px),
+    linear-gradient(-45deg, rgba(14,14,14,0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.diamond-grid-dark {
+  background-image:
+    linear-gradient(45deg, rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(-45deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(14,14,14,0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.grain {
+  position: relative;
+}
+.grain::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: 0.06;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+.edge-dotted{background-image:linear-gradient(to bottom,#E8D9C9 50%,transparent 50%);background-size:1px 8px;background-repeat:repeat-y}

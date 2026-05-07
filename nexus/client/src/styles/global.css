@@ -1,8 +1,9 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { 
   background: var(--bg); 
-  font-family: var(--font-ui); 
+  font-family: var(--font-body); 
   color: var(--text-1); 
+  line-height: 1.5;
 }
 
 html,
@@ -36,4 +37,3 @@ textarea,
 input {
   outline: none;
 }
-
